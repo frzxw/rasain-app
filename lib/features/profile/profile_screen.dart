@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/theme/colors.dart';
 import '../../core/widgets/app_bar.dart';
@@ -69,7 +68,9 @@ class _ProfileScreenState extends State<ProfileScreen> {  @override
   Widget _buildAuthenticatedProfile(BuildContext context, UserProfile user) {    return RefreshIndicator(
       onRefresh: () async {
         await context.read<AuthCubit>().initialize();
+        if (!context.mounted) return;
         await context.read<RecipeCubit>().getLikedRecipes();
+        if (!context.mounted) return;
         await context.read<RecipeCubit>().refreshUserRecipes();
       },
       color: AppColors.primary,

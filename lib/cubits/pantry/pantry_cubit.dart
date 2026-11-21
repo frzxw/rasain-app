@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../core/config/demo_config.dart';
 import '../../services/pantry_service.dart';
 import '../../services/recipe_service.dart';
 import '../../models/pantry_item.dart';
@@ -18,8 +19,9 @@ class PantryCubit extends Cubit<PantryState> {
     
     try {
       // Check if user is authenticated using Supabase
-      final user = Supabase.instance.client.auth.currentUser;
-      if (user == null) {
+      final user =
+          DemoConfig.enabled ? null : Supabase.instance.client.auth.currentUser;
+      if (!DemoConfig.enabled && user == null) {
         emit(state.copyWith(
           status: PantryStatus.unauthenticated,
           isAuthenticated: false,

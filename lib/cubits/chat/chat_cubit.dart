@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'dart:typed_data';
 import '../../services/chat_service.dart';
-import '../../models/chat_message.dart';
 import 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {

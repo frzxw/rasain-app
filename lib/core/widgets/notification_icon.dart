@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/colors.dart';
 import '../../services/notification_service.dart';
-import '../../routes.dart';
-
 class NotificationIcon extends StatelessWidget {
   final Color? iconColor;
   final double size;

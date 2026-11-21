@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'dart:typed_data';
+import '../core/config/demo_config.dart';
 import '../models/chat_message.dart';
 import 'supabase_service.dart';
 
 class ChatService extends ChangeNotifier {
-  final SupabaseService _supabaseService = SupabaseService.instance;
+  SupabaseService get _supabaseService => SupabaseService.instance;
 
   List<ChatMessage> _messages = [];
   bool _isLoading = false;
@@ -22,6 +22,12 @@ class ChatService extends ChangeNotifier {
 
   // Fetch chat history from Supabase
   Future<void> fetchChatHistory() async {
+    if (DemoConfig.enabled) {
+      _messages = _getDefaultChatHistory();
+      notifyListeners();
+      return;
+    }
+
     _setLoading(true);
     _clearError();
 
@@ -93,7 +99,7 @@ class ChatService extends ChangeNotifier {
 
       // Create AI response message
       final aiMessage = ChatMessage(
-        id: DateTime.now().millisecondsSinceEpoch.toString() + '_ai',
+        id: '${DateTime.now().millisecondsSinceEpoch}_ai',
         content: aiResponse,
         type: MessageType.text,
         sender: MessageSender.ai,
@@ -184,7 +190,7 @@ class ChatService extends ChangeNotifier {
 
       // Create AI response message
       final aiMessage = ChatMessage(
-        id: DateTime.now().millisecondsSinceEpoch.toString() + '_ai',
+        id: '${DateTime.now().millisecondsSinceEpoch}_ai',
         content: aiResponse,
         type: MessageType.text,
         sender: MessageSender.ai,

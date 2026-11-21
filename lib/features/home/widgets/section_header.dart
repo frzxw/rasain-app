@@ -34,7 +34,7 @@ class SectionHeader extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(AppSizes.paddingXS),
               decoration: BoxDecoration(
-                color: (iconColor ?? AppColors.primary).withOpacity(0.1),
+                color: (iconColor ?? AppColors.primary).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -83,7 +83,7 @@ class SectionHeader extends StatelessWidget {
                   vertical: AppSizes.paddingS,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppSizes.radiusM),
                 ),
                 child: Row(

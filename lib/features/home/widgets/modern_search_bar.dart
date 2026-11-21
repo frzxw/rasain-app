@@ -23,12 +23,12 @@ class ModernSearchBar extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.3),
+          color: AppColors.primary.withValues(alpha: 0.3),
           width: 2,
         ), // Added border for visibility
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(
+            color: Colors.black.withValues(alpha: 
               0.15,
             ), // Increased shadow for visibility
             blurRadius: 16,
@@ -45,7 +45,7 @@ class ModernSearchBar extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: 'Cari resep, bahan, atau chef...',
                 hintStyle: TextStyle(
-                  color: AppColors.textSecondary.withOpacity(0.6),
+                  color: AppColors.textSecondary.withValues(alpha: 0.6),
                   fontSize: 14,
                 ),
                 prefixIcon: const Icon(
@@ -99,7 +99,7 @@ class ModernSearchBar extends StatelessWidget {
         margin: const EdgeInsets.only(right: AppSizes.paddingS),
         padding: const EdgeInsets.all(AppSizes.paddingS),
         decoration: BoxDecoration(
-          color: isActive ? color.withOpacity(0.1) : Colors.transparent,
+          color: isActive ? color.withValues(alpha: 0.1) : Colors.transparent,
           shape: BoxShape.circle,
         ),
         child: Stack(

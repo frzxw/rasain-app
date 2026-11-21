@@ -1,220 +1,80 @@
-# 🍳 Rasain App - Modern Recipe & Cooking Timer
+# Rasain
 
-## 📱 Overview
+Cook Indonesian food from the ingredients already in your kitchen.
 
-Rasain App adalah aplikasi resep modern dengan fitur cooking timer interaktif, mode memasak step-by-step, dan sistem review terintegrasi. Dibuat dengan Flutter dan Supabase.
+Rasain keeps a pantry list, then suggests recipes you can cook before anything expires. The app is Flutter. The database and auth API live in [rasain-backend](https://github.com/frzxw/rasain-backend).
 
-## ✨ Key Features
+## Features
 
-### 🍽️ Recipe Management
-- **Modern Recipe Detail Page** - UI yang indah dan user-friendly
-- **Ingredient List** - Menampilkan quantity dan unit yang jelas
-- **Step-by-Step Instructions** - Panduan memasak yang detail
+- Pantry with quantities, low-stock warnings, and items close to expiry
+- Home search and category filters, including recipes that match the pantry
+- Recipe pages with cost, portions, ingredients, and a step-by-step cooking mode with timers
+- Upload a recipe
+- Community posts and recipe reviews
+- Accounts, saved recipes, and notifications when Supabase is configured
 
-### ⏱️ Cooking Timer System
-- **Interactive Cooking Timer** - Timer countdown dengan animasi
-- **Cooking Mode** - Full-screen step-by-step cooking experience
-- **Live Clock** - Jam real-time saat memasak
-- **Session Timer** - Track total waktu memasak
+The interface is in Indonesian.
 
-### 🎨 User Experience
-- **Responsive Design** - Optimized untuk berbagai ukuran layar
-- **Animated UI** - Smooth animations dan transitions
-- **Color-coded Progress** - Visual feedback yang jelas
-- **Modern Material Design** - Clean dan intuitive interface
+## Stack
 
-### 💾 Database Features
-- **Supabase Integration** - Real-time database
-- **Row Level Security** - Secure data access
-- **Recipe Instructions Timer** - Database-driven cooking timers
-- **User Profiles** - Personalized experience
+Flutter 3.29 and Dart 3.7. State uses `flutter_bloc` and Provider. Navigation uses `go_router`. The live backend is Supabase (Auth, Postgres, Storage), loaded from a `.env` file.
 
-## 🛠️ Tech Stack
+Demo mode is a compile-time flag. It skips Supabase and serves a small in-memory catalog, so the UI runs with no account and no server.
 
-- **Frontend**: Flutter (Dart)
-- **Backend**: Supabase
-- **Database**: PostgreSQL
-- **State Management**: Provider
-- **Routing**: GoRouter
-- **Authentication**: Supabase Auth
+## Who worked on it
 
-## 📁 Project Structure
+This started as Kelompok 24 in Pemrograman Visual dan Piranti Bergerak.
 
-```
-rasain_app/
-├── lib/
-│   ├── core/                    # Core utilities
-│   │   ├── config/             # App configuration
-│   │   ├── constants/          # App constants
-│   │   ├── theme/              # Theme and styling
-│   │   └── widgets/            # Reusable widgets
-│   ├── features/               # Feature modules
-│   │   ├── auth/               # Authentication
-│   │   ├── recipe_detail/      # Recipe detail & cooking
-│   │   ├── chat/               # Chat features
-│   │   └── admin/              # Admin features
-│   ├── models/                 # Data models
-│   ├── services/               # API services
-│   └── cubits/                 # State management
-├── database/                   # Database files
-│   ├── schema.sql              # Database schema
-│   ├── *_seeder.sql           # Data seeders
-│   └── *_fix.sql              # Database fixes
-├── scripts/                    # Utility scripts
-│   └── database/               # Database scripts
-├── docs/                       # Documentation
-└── public/                     # Public assets
-```
+- A Bintang Iftitah FJ ([ABintangIftitahFj](https://github.com/ABintangIftitahFj))
+- Fariz Wibisono ([frzxw](https://github.com/frzxw))
+- Hafidz Tantowi
+- Hasbi Haqqul Fikri ([Altamish27](https://github.com/Altamish27))
+- Putra Hadiyanto Nugroho ([putrahadiyanto](https://github.com/putrahadiyanto))
 
-## 🚀 Getting Started
+Fariz owns the repository. He made the first commit, wired Supabase and `.env`, built the pantry tools and notifications, and merged the group branches. Git history also has two commits from mujtabo.
 
-### Prerequisites
-- Flutter SDK (>= 3.0.0)
-- Dart SDK (>= 3.0.0)
-- Supabase account
+## Screenshots
 
-### Installation
+These are from the web demo (`--dart-define=DEMO_MODE=true`).
 
-1. **Clone the repository**
-   ```bash
-   git clone [repository-url]
-   cd rasain_app
-   ```
+| Welcome | Home |
+| --- | --- |
+| ![Welcome](docs/screenshots/welcome.png) | ![Home](docs/screenshots/home.png) |
 
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
+| Recipe | Pantry | Community |
+| --- | --- | --- |
+| ![Nasi Goreng Kampung](docs/screenshots/recipe.png) | ![Pantry](docs/screenshots/pantry.png) | ![Community](docs/screenshots/community.png) |
 
-3. **Setup environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your Supabase credentials
-   ```
+## Run it locally
 
-4. **Setup database**
-   ```bash
-   # Run database schema and seeders
-   # See database/ folder for SQL files
-   ```
-
-5. **Run the app**
-   ```bash
-   flutter run
-   ```
-
-## 🗄️ Database Setup
-
-### 1. Schema Setup
-```sql
--- Run database/schema.sql in your Supabase SQL editor
-```
-
-### 2. Timer Seeder
-```powershell
-# Use PowerShell scripts for easy setup
-.\scripts\database\quick_timer_setup.ps1
-```
-
-### 3. Verification
-```sql
-SELECT COUNT(*) as total,
-       COUNT(CASE WHEN timer_minutes > 0 THEN 1 END) as with_timer
-FROM recipe_instructions;
-```
-
-## 🎯 Key Features Implementation
-
-### Recipe Detail with Cooking Timer
-- **ModernRecipeDetailScreen** - Main recipe view
-- **ModernIngredientList** - Enhanced ingredient display
-- **ModernInstructionSteps** - Step-by-step with timers
-- **CookingModeView** - Full-screen cooking experience
-
-### Timer System
-- **CookingTimer** - Animated countdown widget
-- **LiveClock** - Real-time clock display
-- **CookingSessionTimer** - Session time tracking
-- **CompactTimerDisplay** - Lightweight timer
-
-### Database Integration
-- **Recipe Service** - API integration
-- **Timer Seeder** - Populate cooking times
-- **RLS Policies** - Secure data access
-
-## 📚 Documentation
-
-Detailed documentation available in `docs/` folder:
-
-- **Cooking Timer Documentation** - Timer system details
-- **Database Setup Guide** - Database configuration
-- **PowerShell Setup Guide** - Script usage
-- **Feature Documentation** - Individual feature docs
-
-## 🧪 Testing
+Flutter 3.29.3 (Dart 3.7) matches `.metadata`.
 
 ```bash
-# Run unit tests
+flutter pub get
+cp .env.example .env
+flutter run
+```
+
+The normal run expects Supabase keys in `.env`. To click through the UI without a backend:
+
+```bash
+flutter run -d chrome --dart-define=DEMO_MODE=true
+```
+
+A release build of that same demo:
+
+```bash
+cp .env.example .env
+flutter build web --release --dart-define=DEMO_MODE=true
+```
+
+Open `build/web`. Routes use a hash (`/#/pantry`). `DEMO_MODE` defaults to false, so a normal mobile build still talks to Supabase.
+
+```bash
+flutter analyze
 flutter test
-
-# Run integration tests
-flutter test integration_test/
 ```
 
-## 🚀 Deployment
+## Web preview
 
-### Android
-```bash
-flutter build apk --release
-```
-
-### iOS
-```bash
-flutter build ios --release
-```
-
-### Web
-```bash
-flutter build web --release
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Team
-
-- **Developer**: [Your Name]
-- **Project**: Provis Semester 4 - Tugas 3
-
-## 🙏 Acknowledgments
-
-- Flutter team for the amazing framework
-- Supabase for the backend infrastructure
-- Material Design for UI guidelines
-
----
-
-## 📱 Screenshots
-
-[Add screenshots of your app here]
-
-## 🔗 Links
-
-- [Supabase Dashboard](https://supabase.com/dashboard)
-- [Flutter Documentation](https://flutter.dev/docs)
-- [Material Design](https://material.io/)
-
----
-
-**Status**: ✅ **Production Ready**  
-**Version**: 1.0.0  
-**Last Updated**: June 2025
+`vercel.json` builds the demo with `scripts/vercel-build.sh` and publishes `build/web`. A preview URL shows up once a Vercel project is connected to this repo. Nothing here deploys on its own.

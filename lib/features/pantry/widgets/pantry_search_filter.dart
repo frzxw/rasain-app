@@ -348,7 +348,7 @@ class _PantrySearchFilterState extends State<PantrySearchFilter> {
       label: Text(label),
       deleteIcon: const Icon(Icons.close, size: 16),
       onDeleted: onRemove,
-      backgroundColor: AppColors.primary.withOpacity(0.1),
+      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
       labelStyle: TextStyle(
         color: AppColors.primary,
         fontSize: 12,

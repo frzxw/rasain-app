@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../core/config/demo_config.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/theme/colors.dart';
 import '../../core/widgets/app_bar.dart';
@@ -95,7 +96,7 @@ class _PantryScreenState extends State<PantryScreen>
               Container(
                 padding: const EdgeInsets.all(AppSizes.paddingXL),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -313,7 +314,7 @@ class _PantryScreenState extends State<PantryScreen>
                 FloatingActionButton(
                   heroTag: "scan",
                   onPressed: _handleCameraInput,
-                  backgroundColor: AppColors.primary.withOpacity(0.9),
+                  backgroundColor: AppColors.primary.withValues(alpha: 0.9),
                   child: const Icon(Icons.camera_alt),
                 ),
                 const SizedBox(height: AppSizes.marginS),
@@ -483,9 +484,9 @@ class _PantryScreenState extends State<PantryScreen>
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingM),
             decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.1),
+              color: Colors.orange.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.radiusM),
-              border: Border.all(color: Colors.orange.withOpacity(0.3)),
+              border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -517,9 +518,9 @@ class _PantryScreenState extends State<PantryScreen>
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingM),
             decoration: BoxDecoration(
-              color: AppColors.error.withOpacity(0.1),
+              color: AppColors.error.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.radiusM),
-              border: Border.all(color: AppColors.error.withOpacity(0.3)),
+              border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -699,7 +700,7 @@ class _PantryScreenState extends State<PantryScreen>
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.radiusS),
             ),
             child: Icon(icon, color: color, size: 20),
@@ -738,7 +739,9 @@ class _PantryScreenState extends State<PantryScreen>
         });
       },      onSave: (PantryItem item) {
         debugPrint('📝 PantryScreen: onSave called with item: ${item.name}');
-        debugPrint('🔍 PantryScreen: User authenticated: ${Supabase.instance.client.auth.currentUser?.id != null}');
+        debugPrint(
+          '🔍 PantryScreen: User authenticated: ${DemoConfig.enabled || Supabase.instance.client.auth.currentUser != null}',
+        );
         
         final pantryCubit = context.read<PantryCubit>();
 
@@ -748,7 +751,7 @@ class _PantryScreenState extends State<PantryScreen>
         } else {
           debugPrint('➕ PantryScreen: Adding new item');
           pantryCubit.addPantryItem(item).then((_) {
-            // Show success message if item was added successfully
+            if (!mounted) return;
             final currentState = pantryCubit.state;
             if (currentState.status == PantryStatus.loaded) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -817,10 +820,11 @@ class _PantryScreenState extends State<PantryScreen>
       imageQuality: 85,
     );
 
-    if (image == null) return;
+    if (image == null || !mounted) return;
 
     try {
       final bytes = await image.readAsBytes();
+      if (!mounted) return;
       await context.read<PantryCubit>().addPantryItemFromImage(bytes, image.name);
 
       if (!mounted) return;

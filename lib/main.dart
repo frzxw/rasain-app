@@ -10,8 +10,10 @@ import 'services/chat_service.dart';
 import 'services/notification_service.dart';
 import 'services/favorite_service.dart';
 import 'core/theme/theme_service.dart';
+import 'core/config/demo_config.dart';
 import 'core/config/supabase_config.dart';
 import 'core/config/auth_listener.dart';
+import 'demo/demo_data.dart';
 import 'services/data_service.dart';
 import 'debug_check.dart';
 
@@ -27,16 +29,21 @@ import 'cubits/theme/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize Supabase
-  await SupabaseConfig.initialize();
+  if (!DemoConfig.enabled) {
+    await SupabaseConfig.initialize();
+    await DebugCheck.runDebugCheck();
+  }
 
-  // Run debug check
-  await DebugCheck.runDebugCheck();
-  // Set preferred orientations
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]); // Create service instances
+  // Web and desktop ignore orientation locks.
+  try {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  } catch (e) {
+    debugPrint('Orientation lock skipped: $e');
+  }
+  // Create service instances
   final themeService = ThemeService();
   final authService = AuthService();
   final recipeService = RecipeService();
@@ -48,6 +55,9 @@ void main() async {
 
   // Connect services
   authService.setNotificationService(notificationService);
+  if (DemoConfig.enabled) {
+    await notificationService.setCurrentUser(DemoData.userId);
+  }
 
   // Initialize recipe service to ensure slugs are properly set
   await recipeService.initializeService();

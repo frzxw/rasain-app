@@ -26,21 +26,17 @@ class ServicesInitializer {
 
   /// Initialize all services with mock data
   static Future<void> initializeServices(BuildContext context) async {
-    // Initialize auth service (login a mock user)
     final authService = Provider.of<AuthService>(context, listen: false);
-    await authService.checkAuth();
-
-    // Initialize recipe service
     final recipeService = Provider.of<RecipeService>(context, listen: false);
-    await recipeService.initialize(); // Initialize pantry service
     final pantryService = Provider.of<PantryService>(context, listen: false);
-    await pantryService.initialize();
-
-    // Initialize notification service
     final notificationService = Provider.of<NotificationService>(
       context,
       listen: false,
     );
+
+    await authService.checkAuth();
+    await recipeService.initialize();
+    await pantryService.initialize();
     await notificationService.initialize();
 
     debugPrint('All services initialized with Indonesian mock data');

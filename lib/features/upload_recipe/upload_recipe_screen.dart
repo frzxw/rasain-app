@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../core/config/demo_config.dart';
 import '../../core/constants/sizes.dart';
+import '../../core/utils/local_image.dart';
 import '../../core/theme/colors.dart';
 import '../../core/widgets/auth_dialog.dart';
 import '../../cubits/upload_recipe/upload_recipe_cubit.dart';
 import '../../cubits/upload_recipe/upload_recipe_state.dart';
 import '../../cubits/recipe/recipe_cubit.dart';
 import '../../models/recipe_ingredient.dart';
+import '../../demo/demo_data.dart';
 import '../../models/recipe_instruction.dart';
 
 class UploadRecipeScreen extends StatefulWidget {
@@ -45,8 +47,8 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
   // Form data
   List<XFile> _selectedImages = [];
   List<Uint8List> _imageBytes = []; // For web preview
-  List<RecipeIngredient> _ingredients = [];
-  List<RecipeInstruction> _instructions = [];
+  final List<RecipeIngredient> _ingredients = [];
+  final List<RecipeInstruction> _instructions = [];
   String? _selectedCategory;
   String? _selectedDifficulty; // New field for difficulty level  // Additional controllers for ingredient form
   final TextEditingController _ingredientNameController =
@@ -94,7 +96,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
     _checkAuthenticationAndShowForm();
 
     // Load categories from database
-    _loadCategories(); // Listen untuk auth state changes dengan tambahan stream listener
+    _loadCategories();
+    if (DemoConfig.enabled) return;
+
+    // Listen untuk auth state changes dengan tambahan stream listener
     Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       if (mounted) {
         final wasAuthenticated = _isUserAuthenticated();
@@ -179,11 +184,20 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
   }
 
   bool _isUserAuthenticated() {
+    if (DemoConfig.enabled) return true;
     return Supabase.instance.client.auth.currentUser != null;
   }
 
   Future<void> _loadCategories() async {
     if (_categoriesLoaded) return;
+
+    if (DemoConfig.enabled) {
+      setState(() {
+        _categories = DemoData.categories.where((name) => name != 'All').toList();
+        _categoriesLoaded = true;
+      });
+      return;
+    }
 
     try {
       final response = await Supabase.instance.client
@@ -199,9 +213,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
         _categoriesLoaded = true;
       });
 
-      print('✅ Loaded ${_categories.length} categories: $_categories');
+      debugPrint('✅ Loaded ${_categories.length} categories: $_categories');
     } catch (e) {
-      print('❌ Error loading categories: $e');
+      debugPrint('❌ Error loading categories: $e');
       // Fallback to default categories if database fetch fails
       setState(() {
         _categories = [
@@ -397,7 +411,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
             height: 80,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.primary, AppColors.primary.withOpacity(0.7)],
+                colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.7)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -439,9 +453,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
       margin: const EdgeInsets.all(AppSizes.paddingL),
       padding: const EdgeInsets.all(AppSizes.paddingL),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 1),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         children: [
@@ -471,9 +485,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.green.withOpacity(0.3)),
+                border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -616,8 +630,8 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                                     height: double.infinity,
                                   )
                                   : const Icon(Icons.image))
-                              : Image.file(
-                                File(_selectedImages.first.path),
+                              : localFileImage(
+                                _selectedImages.first.path,
                                 fit: BoxFit.cover,
                                 width: double.infinity,
                                 height: double.infinity,
@@ -903,7 +917,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -928,9 +942,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
               width: double.infinity,
               padding: const EdgeInsets.all(AppSizes.paddingS),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.1),
+                color: AppColors.success.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.radiusS),
-                border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -972,7 +986,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
@@ -1056,10 +1070,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
               width: double.infinity,
               padding: const EdgeInsets.all(AppSizes.paddingM),
               decoration: BoxDecoration(
-                color: AppColors.textSecondary.withOpacity(0.1),
+                color: AppColors.textSecondary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.radiusS),
                 border: Border.all(
-                  color: AppColors.textSecondary.withOpacity(0.3),
+                  color: AppColors.textSecondary.withValues(alpha: 0.3),
                   style: BorderStyle.solid,
                 ),
               ),
@@ -1129,7 +1143,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -1154,9 +1168,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
               width: double.infinity,
               padding: const EdgeInsets.all(AppSizes.paddingS),
               decoration: BoxDecoration(
-                color: AppColors.success.withOpacity(0.1),
+                color: AppColors.success.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.radiusS),
-                border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -1237,10 +1251,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                                       vertical: 2,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.orange.withOpacity(0.1),
+                                      color: Colors.orange.withValues(alpha: 0.1),
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color: Colors.orange.withOpacity(0.3),
+                                        color: Colors.orange.withValues(alpha: 0.3),
                                       ),
                                     ),
                                     child: Row(
@@ -1272,10 +1286,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                                       vertical: 2,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.blue.withOpacity(0.1),
+                                      color: Colors.blue.withValues(alpha: 0.1),
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color: Colors.blue.withOpacity(0.3),
+                                        color: Colors.blue.withValues(alpha: 0.3),
                                       ),
                                     ),
                                     child: Row(
@@ -1406,10 +1420,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
               width: double.infinity,
               padding: const EdgeInsets.all(AppSizes.paddingM),
               decoration: BoxDecoration(
-                color: AppColors.textSecondary.withOpacity(0.1),
+                color: AppColors.textSecondary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.radiusS),
                 border: Border.all(
-                  color: AppColors.textSecondary.withOpacity(0.3),
+                  color: AppColors.textSecondary.withValues(alpha: 0.3),
                   style: BorderStyle.solid,
                 ),
               ),
@@ -1518,6 +1532,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
           }
         }
 
+        if (!mounted) return;
         setState(() {
           _selectedImages = images.take(5).toList();
           if (kIsWeb) {
@@ -1526,6 +1541,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
         });
       }
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error selecting images: $e')));
@@ -1548,6 +1564,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
         });
       }
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error selecting image: $e')));
@@ -1988,7 +2005,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                   ),
                 ] else ...[
                   // Show selected image preview
-                  Container(
+                  SizedBox(
                     height: 120,
                     width: double.infinity,
                     child: Stack(
@@ -2014,8 +2031,8 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
                                       );
                                     },
                                   )
-                                  : Image.file(
-                                    File(_currentInstructionImage!.path),
+                                  : localFileImage(
+                                    _currentInstructionImage!.path,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: double.infinity,
@@ -2131,9 +2148,10 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
 
         imageUrl = supabase.storage.from('recipeimages').getPublicUrl(fileName);
 
-        print('✅ Instruction image uploaded: $imageUrl');
+        debugPrint('✅ Instruction image uploaded: $imageUrl');
       } catch (e) {
-        print('❌ Error uploading instruction image: $e');
+        debugPrint('❌ Error uploading instruction image: $e');
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Gagal mengupload gambar: $e'),
@@ -2152,6 +2170,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
       imageUrl: imageUrl,
     );
 
+    if (!mounted) return;
     setState(() {
       _instructions.add(newInstruction);
       // Clear form

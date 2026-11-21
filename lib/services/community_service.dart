@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import '../core/config/demo_config.dart';
+import '../demo/demo_data.dart';
 import '../models/community_post.dart';
 import '../models/post_comment.dart';
 import 'supabase_service.dart';
-import 'dart:typed_data';
 
 /// Result classes for better operation feedback
 class LikeOperationResult {
@@ -51,7 +52,7 @@ class CommunityService {
   factory CommunityService() => _instance;
   CommunityService._internal();
 
-  final SupabaseService _supabaseService = SupabaseService.instance;
+  SupabaseService get _supabaseService => SupabaseService.instance;
 
   // Constants
   static const String _defaultUserName = 'Community User';
@@ -63,6 +64,8 @@ class CommunityService {
 
   /// Get all community posts with user profile information and like status
   Future<List<CommunityPost>> getCommunityPosts() async {
+    if (DemoConfig.enabled) return DemoData.posts();
+
     try {
       // Get posts with basic data first
       final response = await _supabaseService.client
@@ -145,6 +148,8 @@ class CommunityService {
 
   /// Update posts with like status for current user (matches cubit functionality)
   Future<List<CommunityPost>> updatePostsWithLikeStatus(List<CommunityPost> posts) async {
+    if (DemoConfig.enabled) return posts;
+
     try {
       final currentUser = _supabaseService.client.auth.currentUser;
       if (currentUser == null) {
@@ -833,6 +838,8 @@ class CommunityService {
   }
   /// Get all unique categories from community posts
   Future<List<String>> getPostCategories() async {
+    if (DemoConfig.enabled) return DemoData.postCategories;
+
     try {
       final response = await _supabaseService.client
           .from('community_posts')

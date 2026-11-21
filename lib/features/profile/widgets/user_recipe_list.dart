@@ -68,7 +68,7 @@ class _UserRecipeListState extends State<UserRecipeList> with SingleTickerProvid
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
@@ -141,9 +141,9 @@ class _UserRecipeListState extends State<UserRecipeList> with SingleTickerProvid
   }
 
   Widget _buildLoadingState() {
-    return Container(
+    return const SizedBox(
       height: 200,
-      child: const Center(
+      child: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
         ),
@@ -224,7 +224,7 @@ class _UserRecipeListState extends State<UserRecipeList> with SingleTickerProvid
         ...displayRecipes.map((recipe) => _buildCompactRecipeItem(context, recipe)),
         if (widget.recipes.length > 2) ...[
           const SizedBox(height: AppSizes.marginM),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
               onPressed: _toggleExpanded,
@@ -263,10 +263,10 @@ class _UserRecipeListState extends State<UserRecipeList> with SingleTickerProvid
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -474,7 +474,7 @@ class _UserRecipeListState extends State<UserRecipeList> with SingleTickerProvid
       width: 80,
       height: 80,
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
       ),
       child: Icon(Icons.restaurant, color: AppColors.primary, size: 32),

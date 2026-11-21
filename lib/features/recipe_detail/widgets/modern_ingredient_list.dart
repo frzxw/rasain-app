@@ -23,7 +23,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  Set<int> _checkedIngredients = {};
+  final Set<int> _checkedIngredients = {};
 
   // Helper method to calculate serving multiplier
   double get _servingMultiplier {
@@ -65,7 +65,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 20,
               offset: const Offset(0, 4),
             ),
@@ -84,7 +84,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                   end: Alignment.bottomRight,
                   colors: [
                     AppColors.primary,
-                    AppColors.primary.withOpacity(0.8),
+                    AppColors.primary.withValues(alpha: 0.8),
                   ],
                 ),
                 borderRadius: const BorderRadius.only(
@@ -97,7 +97,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -121,7 +121,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                       Text(
                         '${widget.ingredients.length} item',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontSize: 14,
                         ),
                       ),
@@ -174,10 +174,10 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.3),
+                              color: AppColors.primary.withValues(alpha: 0.3),
                             ),
                           ),
                           child: Text(
@@ -259,7 +259,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
       duration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: isChecked ? AppColors.success.withOpacity(0.1) : Colors.grey[50],
+        color: isChecked ? AppColors.success.withValues(alpha: 0.1) : Colors.grey[50],
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isChecked ? AppColors.success : Colors.grey[300]!,
@@ -367,7 +367,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.1),
+                                color: AppColors.primary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
@@ -391,7 +391,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -416,7 +416,7 @@ class _ModernIngredientListState extends State<ModernIngredientList>
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),

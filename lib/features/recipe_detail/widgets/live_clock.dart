@@ -8,12 +8,12 @@ class LiveClock extends StatefulWidget {
   final BorderRadius? borderRadius;
 
   const LiveClock({
-    Key? key,
+    super.key,
     this.textStyle,
     this.backgroundColor,
     this.padding,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   State<LiveClock> createState() => _LiveClockState();
@@ -62,7 +62,7 @@ class _LiveClockState extends State<LiveClock> {
     return Container(
       padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? Colors.black.withOpacity(0.7),
+        color: widget.backgroundColor ?? Colors.black.withValues(alpha: 0.7),
         borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
       ),
       child: Column(
@@ -81,7 +81,7 @@ class _LiveClockState extends State<LiveClock> {
           Text(
             _formatDate(_currentTime),
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -100,13 +100,13 @@ class CookingSessionTimer extends StatefulWidget {
   final BorderRadius? borderRadius;
 
   const CookingSessionTimer({
-    Key? key,
+    super.key,
     required this.startTime,
     this.textStyle,
     this.backgroundColor,
     this.padding,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   State<CookingSessionTimer> createState() => _CookingSessionTimerState();
@@ -151,10 +151,10 @@ class _CookingSessionTimerState extends State<CookingSessionTimer> {
     return Container(
       padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? Colors.green.withOpacity(0.1),
+        color: widget.backgroundColor ?? Colors.green.withValues(alpha: 0.1),
         borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.green.withOpacity(0.3),
+          color: Colors.green.withValues(alpha: 0.3),
           width: 1,
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/theme/colors.dart';
 import '../../services/recipe_service.dart';
@@ -51,13 +50,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
           // Debug print untuk melihat data instruksi
           if (recipe != null) {
-            print('🍽️ Recipe loaded: ${recipe.name}');
-            print('📋 Instructions count: ${recipe.instructions?.length ?? 0}');
+            debugPrint('🍽️ Recipe loaded: ${recipe.name}');
+            debugPrint('📋 Instructions count: ${recipe.instructions?.length ?? 0}');
             if (recipe.instructions != null &&
                 recipe.instructions!.isNotEmpty) {
-              print('📝 First instruction: ${recipe.instructions!.first}');
+              debugPrint('📝 First instruction: ${recipe.instructions!.first}');
             } else {
-              print('❌ No instructions found for recipe');
+              debugPrint('❌ No instructions found for recipe');
             }
           }
 
@@ -125,7 +124,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 decoration: BoxDecoration(
                   color:
                       recipe.isSaved
-                          ? AppColors.highlight.withOpacity(0.2)
+                          ? AppColors.highlight.withValues(alpha: 0.2)
                           : Colors.black38,
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -138,8 +137,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               onPressed: () async {
                 final wasSaved = recipe.isSaved;
                 await recipeService.toggleSaveRecipe(recipe.id);
-                
-                // Trigger notification
+                if (!context.mounted) return;
+
                 final notificationCubit = context.read<NotificationCubit>();
                 if (!wasSaved) {
                   await notificationCubit.notifyRecipeSaved(recipe.name, context: context, recipeId: recipe.id);
@@ -170,7 +169,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                       end: Alignment.bottomRight,
                                       colors: [
                                         AppColors.primary,
-                                        AppColors.primary.withOpacity(0.8),
+                                        AppColors.primary.withValues(alpha: 0.8),
                                       ],
                                     ),
                                   ),
@@ -188,7 +187,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                 end: Alignment.bottomRight,
                                 colors: [
                                   AppColors.primary,
-                                  AppColors.primary.withOpacity(0.8),
+                                  AppColors.primary.withValues(alpha: 0.8),
                                 ],
                               ),
                             ),
@@ -263,7 +262,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: Colors.grey.withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -277,7 +276,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.green.withOpacity(0.1),
+                              color: Colors.green.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
@@ -316,7 +315,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: Colors.grey.withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -333,7 +332,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.1),
+                                  color: Colors.blue.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: const Icon(
@@ -361,13 +360,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                 gradient: LinearGradient(
                                   colors: [
                                     AppColors.primary,
-                                    AppColors.primary.withOpacity(0.8),
+                                    AppColors.primary.withValues(alpha: 0.8),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(25),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.primary.withOpacity(0.3),
+                                    color: AppColors.primary.withValues(alpha: 0.3),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -426,7 +425,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: Colors.grey.withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -440,7 +439,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.amber.withOpacity(0.1),
+                              color: Colors.amber.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
@@ -703,12 +702,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.white, AppColors.primary.withOpacity(0.02)],
+          colors: [Colors.white, AppColors.primary.withValues(alpha: 0.02)],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
@@ -722,9 +721,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             Container(
               padding: const EdgeInsets.all(AppSizes.paddingM),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.05),
+                color: AppColors.primary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.primary.withOpacity(0.1)),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.1)),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -823,12 +822,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               decoration: BoxDecoration(
                 color: _getDifficultyColor(
                   recipe.difficultyLevel!,
-                ).withOpacity(0.1),
+                ).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: _getDifficultyColor(
                     recipe.difficultyLevel!,
-                  ).withOpacity(0.3),
+                  ).withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -887,13 +886,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            AppColors.primary.withOpacity(0.1),
-                            AppColors.primary.withOpacity(0.05),
+                            AppColors.primary.withValues(alpha: 0.1),
+                            AppColors.primary.withValues(alpha: 0.05),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Text(
@@ -922,16 +921,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return Container(
       padding: const EdgeInsets.all(AppSizes.paddingM),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
+              color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: color, size: 24),

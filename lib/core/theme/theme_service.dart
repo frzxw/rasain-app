@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'colors.dart';
 
 class ThemeService extends ChangeNotifier {
-  // Remove dark mode and dynamic colors preferences
-  static const String _themePreferenceKey = 'app_theme_mode';
-
-  // Always use light theme
-  final ThemeMode _themeMode = ThemeMode.light;
-
   ThemeService() {
     _updateSystemUIOverlay();
   }

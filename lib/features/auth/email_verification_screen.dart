@@ -23,7 +23,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       listener: (context, state) {
         // Auto-navigate to home when email is verified
         if (state.status == AuthStatus.authenticated) {
-          print(
+          debugPrint(
             'EmailVerificationScreen: User authenticated, navigating to home',
           );
           // Show success message before navigating
@@ -69,9 +69,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: Colors.blue.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                  border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
                 ),
                 child: const Column(
                   children: [

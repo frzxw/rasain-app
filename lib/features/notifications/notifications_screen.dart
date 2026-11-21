@@ -7,7 +7,6 @@ import '../../core/widgets/app_bar.dart';
 import '../../cubits/notification/notification_cubit.dart';
 import '../../cubits/notification/notification_state.dart';
 import '../../models/notification.dart';
-import '../../routes.dart';
 import 'package:go_router/go_router.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -141,7 +140,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: AppSizes.paddingL),
         decoration: BoxDecoration(
-          color: AppColors.error.withOpacity(0.8),
+          color: AppColors.error.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(AppSizes.radiusM),
         ),
         child: const Icon(
@@ -173,7 +172,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             color:
                 notification.isRead
                     ? AppColors.border
-                    : AppColors.primary.withOpacity(0.5),
+                    : AppColors.primary.withValues(alpha: 0.5),
             width: notification.isRead ? 1 : 2,
           ),
         ),
@@ -191,7 +190,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: notification.typeColor.withOpacity(0.2),
+                    color: notification.typeColor.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

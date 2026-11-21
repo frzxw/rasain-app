@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/theme/colors.dart';
 import '../../../models/recipe.dart';
-import '../../../services/recipe_service.dart';
 import '../../../cubits/notification/notification_cubit.dart';
 import '../../../services/favorite_service.dart';
-import '../../../services/notification_service.dart';
-import '../../../cubits/notification/notification_state.dart';
-import '../../../core/constants/assets.dart';
 import '../../../cubits/recipe/recipe_cubit.dart';
 
 class TrendingRecipeCard extends StatefulWidget {
@@ -31,12 +26,8 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
   late Animation<Offset> _slideAnimation;
   late Animation<double> _hoverScale;
 
-  final RecipeService _recipeService = RecipeService();
-  late FavoriteService _favoriteService;
-  late NotificationService _notificationService;
-  late NotificationCubit _notificationCubit;
-
   bool _isHovered = false;
+  bool _isHeartHovered = false;
   @override
   void initState() {
     super.initState();
@@ -71,9 +62,6 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
     );
 
     _controller.forward();
-    _favoriteService = Provider.of<FavoriteService>(context, listen: false);
-    _notificationService = Provider.of<NotificationService>(context, listen: false);
-    _notificationCubit = NotificationCubit(_notificationService);
   }
 
   @override
@@ -129,13 +117,13 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
                           BoxShadow(
                             color:
                                 _isHovered
-                                    ? AppColors.primary.withOpacity(0.15)
-                                    : Colors.black.withOpacity(0.08),
+                                    ? AppColors.primary.withValues(alpha: 0.15)
+                                    : Colors.black.withValues(alpha: 0.08),
                             blurRadius: _isHovered ? 20 : 15,
                             offset: Offset(0, _isHovered ? 8 : 4),
                           ),
                           BoxShadow(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                             blurRadius: 10,
                             offset: const Offset(0, -2),
                           ),
@@ -186,17 +174,17 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
           gradient: LinearGradient(
             colors: [
-              AppColors.primary.withOpacity(0.1),
-              AppColors.primary.withOpacity(0.05),
+              AppColors.primary.withValues(alpha: 0.1),
+              AppColors.primary.withValues(alpha: 0.05),
             ],
           ),
           border: Border.all(
-            color: AppColors.primary.withOpacity(0.2),
+            color: AppColors.primary.withValues(alpha: 0.2),
             width: 2,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -224,8 +212,8 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.primary.withOpacity(0.2),
-            AppColors.primary.withOpacity(0.1),
+            AppColors.primary.withValues(alpha: 0.2),
+            AppColors.primary.withValues(alpha: 0.1),
           ],
         ),
       ),
@@ -271,7 +259,7 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
           children: [
             _buildStatChip(
               icon: Icons.star,
-              value: '${widget.recipe.rating.toStringAsFixed(1)}',
+              value: widget.recipe.rating.toStringAsFixed(1),
               color: Colors.amber,
             ),
             const SizedBox(width: AppSizes.marginS),
@@ -297,9 +285,9 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
         vertical: AppSizes.paddingXS,
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
-        border: Border.all(color: color.withOpacity(0.3), width: 1),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -323,62 +311,53 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
     return Consumer<FavoriteService>(
       builder: (context, favoriteService, _) {
         final isSaved = favoriteService.isFavorite(widget.recipe.id);
-        return StatefulBuilder(
-          builder: (context, setState) {
-            bool isHeartHovered = false;
-            
-            return MouseRegion(
-              onEnter: (_) => setState(() => isHeartHovered = true),
-              onExit: (_) => setState(() => isHeartHovered = false),
+        return MouseRegion(
+              onEnter: (_) => setState(() => _isHeartHovered = true),
+              onExit: (_) => setState(() => _isHeartHovered = false),
               child: GestureDetector(
                 onTap: () async {
                   final wasSaved = isSaved;
                   final success = await favoriteService.toggleFavorite(widget.recipe.id);
-                  if (success) {
-                    // Get the notification cubit from the context
-                    final notificationCubit = context.read<NotificationCubit>();
-                    if (!wasSaved) {
-                      await notificationCubit.notifyRecipeSaved(widget.recipe.name, context: context, recipeId: widget.recipe.id);
-                    } else {
-                      await notificationCubit.notifyRecipeRemoved(widget.recipe.name, context: context, recipeId: widget.recipe.id);
-                    }
-                    
-                    // Refresh saved recipes in RecipeCubit to update profile page
-                    context.read<RecipeCubit>().getLikedRecipes();
+                  if (!success || !context.mounted) return;
+                  final notificationCubit = context.read<NotificationCubit>();
+                  if (!wasSaved) {
+                    await notificationCubit.notifyRecipeSaved(widget.recipe.name, context: context, recipeId: widget.recipe.id);
+                  } else {
+                    await notificationCubit.notifyRecipeRemoved(widget.recipe.name, context: context, recipeId: widget.recipe.id);
                   }
+                  if (!context.mounted) return;
+                  context.read<RecipeCubit>().getLikedRecipes();
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.all(AppSizes.paddingS),
                   decoration: BoxDecoration(
-                    color: isSaved ? AppColors.primary : (isHeartHovered ? Colors.grey.shade200 : Colors.grey.shade100),
+                    color: isSaved ? AppColors.primary : (_isHeartHovered ? Colors.grey.shade200 : Colors.grey.shade100),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: isSaved ? AppColors.primary : (isHeartHovered ? Colors.grey.shade400 : Colors.grey.shade300),
-                      width: isHeartHovered ? 2 : 1.5,
+                      color: isSaved ? AppColors.primary : (_isHeartHovered ? Colors.grey.shade400 : Colors.grey.shade300),
+                      width: _isHeartHovered ? 2 : 1.5,
                     ),
                     boxShadow: [
                       BoxShadow(
                         color: (isSaved ? AppColors.primary : Colors.grey)
-                            .withOpacity(isHeartHovered ? 0.3 : 0.2),
-                        blurRadius: isHeartHovered ? 12 : 8,
-                        offset: Offset(0, isHeartHovered ? 4 : 2),
+                            .withValues(alpha: _isHeartHovered ? 0.3 : 0.2),
+                        blurRadius: _isHeartHovered ? 12 : 8,
+                        offset: Offset(0, _isHeartHovered ? 4 : 2),
                       ),
                     ],
                   ),
                   child: Transform.scale(
-                    scale: isHeartHovered ? 1.1 : 1.0,
+                    scale: _isHeartHovered ? 1.1 : 1.0,
                     child: Icon(
                       isSaved ? Icons.favorite : Icons.favorite_border,
-                      color: isSaved ? Colors.white : (isHeartHovered ? Colors.grey.shade700 : Colors.grey.shade600),
+                      color: isSaved ? Colors.white : (_isHeartHovered ? Colors.grey.shade700 : Colors.grey.shade600),
                       size: 16,
                     ),
                   ),
                 ),
               ),
             );
-          },
-        );
       },
     );
   }
@@ -399,7 +378,7 @@ class _TrendingRecipeCardState extends State<TrendingRecipeCard>
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFFF6B35).withOpacity(0.4),
+                  color: const Color(0xFFFF6B35).withValues(alpha: 0.4),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),

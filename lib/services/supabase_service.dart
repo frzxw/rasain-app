@@ -35,7 +35,10 @@ class SupabaseService {
         debugPrint('ANON_KEY: ${supabaseAnonKey.substring(0, 10)}...');
       }
 
-      await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
+      await Supabase.initialize(
+        url: supabaseUrl,
+        publishableKey: supabaseAnonKey,
+      );
       debugPrint('✅ Supabase initialized successfully');
     } catch (e) {
       debugPrint('❌ Error initializing Supabase: $e');

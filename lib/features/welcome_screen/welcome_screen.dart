@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/sizes.dart';
 import '../../core/theme/colors.dart';
-import '../../core/widgets/custom_button.dart';
-
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
   @override
@@ -26,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
       },
       {
         'name': 'Detail Resep',
-        'route': '/recipe/1',
+        'route': '/recipe/nasi-goreng-kampung',
         'icon': Icons.receipt_long_outlined,
         'gradient': [Colors.blue.shade400, Colors.blue.shade600],
         'note': 'Panduan lengkap memasak dengan mode step-by-step',
@@ -68,9 +66,9 @@ class WelcomeScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColors.primary.withOpacity(0.1),
+              AppColors.primary.withValues(alpha: 0.1),
               Colors.white,
-              AppColors.primary.withOpacity(0.05),
+              AppColors.primary.withValues(alpha: 0.05),
             ],
           ),
         ),
@@ -90,12 +88,12 @@ class WelcomeScreen extends StatelessWidget {
                         gradient: LinearGradient(
                           colors: [
                             AppColors.primary,
-                            AppColors.primary.withOpacity(0.8),
+                            AppColors.primary.withValues(alpha: 0.8),
                           ],
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.3),
+                            color: AppColors.primary.withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -136,14 +134,14 @@ class WelcomeScreen extends StatelessWidget {
                         vertical: AppSizes.paddingS,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Text(
-                        'Kelompok 24',
+                        'Masakan Indonesia, dari dapur kamu',
                         style: Theme.of(
                           context,
                         ).textTheme.titleMedium?.copyWith(
@@ -223,7 +221,7 @@ class WelcomeScreen extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: gradientColors.first.withOpacity(0.3),
+            color: gradientColors.first.withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -243,7 +241,7 @@ class WelcomeScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(icon, size: 32, color: Colors.white),
@@ -267,7 +265,7 @@ class WelcomeScreen extends StatelessWidget {
                 Text(
                   note,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 11,
                   ),
                   textAlign: TextAlign.center,

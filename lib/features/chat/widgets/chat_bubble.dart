@@ -33,7 +33,7 @@ class ChatBubble extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -110,7 +110,7 @@ class ChatBubble extends StatelessWidget {
                       _formatTime(message.timestamp),
                       style: TextStyle(
                         fontSize: 10,
-                        color: isUser ? AppColors.onPrimary.withOpacity(0.7) : AppColors.textSecondary,
+                        color: isUser ? AppColors.onPrimary.withValues(alpha: 0.7) : AppColors.textSecondary,
                       ),
                     ),
                   ),

@@ -81,7 +81,7 @@ class _ModernFloatingActionButtonState extends State<ModernFloatingActionButton>
           Positioned.fill(
             child: GestureDetector(
               onTap: _toggleExpansion,
-              child: Container(color: Colors.black.withOpacity(0.3)),
+              child: Container(color: Colors.black.withValues(alpha: 0.3)),
             ),
           ),
 
@@ -193,7 +193,7 @@ class _ModernFloatingActionButtonState extends State<ModernFloatingActionButton>
             borderRadius: BorderRadius.circular(AppSizes.radiusM),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -218,11 +218,11 @@ class _ModernFloatingActionButtonState extends State<ModernFloatingActionButton>
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [color, color.withOpacity(0.8)]),
+              gradient: LinearGradient(colors: [color, color.withValues(alpha: 0.8)]),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.4),
+                  color: color.withValues(alpha: 0.4),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -264,12 +264,12 @@ class _ModernFloatingActionButtonState extends State<ModernFloatingActionButton>
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.4),
+                        color: AppColors.primary.withValues(alpha: 0.4),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
                       ),
                       BoxShadow(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         blurRadius: 10,
                         offset: const Offset(0, -2),
                       ),

@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       []; // Will be loaded from database with 'All' prepended
   String _selectedCategory = '';
   bool _isSearching = false;
-  bool _isImageSearching = false;
+  final bool _isImageSearching = false;
   bool _isFiltering = false;
   bool _hasActiveFilters = false;
 
@@ -223,8 +223,8 @@ class _HomeScreenState extends State<HomeScreen> {
       await recipeCubit.initialize();
     }
 
-    // Apply filters with current category
-    context.read<RecipeCubit>().filterRecipes(
+    if (!mounted) return;
+    recipeCubit.filterRecipes(
       priceRange: hasPriceFilter ? _priceRange : null,
       timeRange: hasTimeFilter ? _timeRange : null,
       difficulties: hasDifficultyFilter ? [_selectedDifficultyLevel!] : null,
@@ -412,16 +412,16 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: const EdgeInsets.symmetric(horizontal: AppSizes.paddingM),
       padding: const EdgeInsets.all(AppSizes.paddingL),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.05),
+        color: AppColors.primary.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
-        border: Border.all(color: AppColors.primary.withOpacity(0.2), width: 1),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2), width: 1),
       ),
       child: Column(
         children: [
           Icon(
             Icons.kitchen_outlined,
             size: 64,
-            color: AppColors.primary.withOpacity(0.7),
+            color: AppColors.primary.withValues(alpha: 0.7),
           ),
           const SizedBox(height: AppSizes.marginM),
           Text(
@@ -656,7 +656,7 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(AppSizes.radiusM),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

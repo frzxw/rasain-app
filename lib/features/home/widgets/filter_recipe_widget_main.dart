@@ -240,7 +240,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget> {
               max: maxPrice,
               divisions: 20,
               activeColor: AppColors.primary,
-              inactiveColor: AppColors.primary.withOpacity(0.3),
+              inactiveColor: AppColors.primary.withValues(alpha: 0.3),
               labels: RangeLabels(
                 _formatPrice(_currentPriceRange.start),
                 _formatPrice(_currentPriceRange.end),
@@ -316,7 +316,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget> {
               max: maxTime,
               divisions: 18,
               activeColor: AppColors.primary,
-              inactiveColor: AppColors.primary.withOpacity(0.3),
+              inactiveColor: AppColors.primary.withValues(alpha: 0.3),
               labels: RangeLabels(
                 _formatTime(_currentTimeRange.start),
                 _formatTime(_currentTimeRange.end),

@@ -99,7 +99,7 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
         borderRadius: BorderRadius.circular(AppSizes.radiusXL),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange.withOpacity(0.1),
+            color: Colors.orange.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -152,7 +152,7 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
                   borderRadius: BorderRadius.circular(60),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -225,7 +225,7 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withValues(alpha: 0.3),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -242,7 +242,7 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.orange.withOpacity(0.4),
+                color: Colors.orange.withValues(alpha: 0.4),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               ),
@@ -264,7 +264,7 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
             '💨',
             style: TextStyle(
               fontSize: 16 - (index * 2),
-              color: Colors.grey.withOpacity(0.7 - (index * 0.2)),
+              color: Colors.grey.withValues(alpha: 0.7 - (index * 0.2)),
             ),
           ),
         );
@@ -289,10 +289,10 @@ class _AnimatedCookingWidgetState extends State<AnimatedCookingWidget>
                   width: 8 + (index * 2),
                   height: 8 + (index * 2),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.blue.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),
@@ -334,7 +334,7 @@ class KitchenBackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint =
         Paint()
-          ..color = Colors.orange.withOpacity(0.05)
+          ..color = Colors.orange.withValues(alpha: 0.05)
           ..style = PaintingStyle.fill;
 
     // Draw subtle kitchen utensils in background

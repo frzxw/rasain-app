@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/theme/colors.dart';
-import '../../../core/widgets/recipe_card.dart';
 import '../../../core/widgets/shimmer_widget.dart';
 import '../../../cubits/recipe/recipe_cubit.dart';
 import '../../../cubits/recipe/recipe_state.dart';
@@ -66,14 +65,14 @@ class PantryBasedRecipes extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingM),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -164,7 +163,7 @@ class PantryBasedRecipes extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppSizes.radiusM),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -206,7 +205,7 @@ class PantryBasedRecipes extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.success.withOpacity(0.9),
+                        color: AppColors.success.withValues(alpha: 0.9),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -302,7 +301,7 @@ class PantryBasedRecipes extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(

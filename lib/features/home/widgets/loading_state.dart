@@ -66,7 +66,7 @@ class LoadingState extends StatelessWidget {
               width: 6,
               height: 6,
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(value),
+                color: AppColors.primary.withValues(alpha: value),
                 shape: BoxShape.circle,
               ),
             );

@@ -70,7 +70,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -122,13 +122,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           gradient: LinearGradient(
-            colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+            colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.3),
+              color: AppColors.primary.withValues(alpha: 0.3),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -156,7 +156,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
@@ -195,7 +195,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),
@@ -207,7 +207,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.error.withOpacity(0.1),
+                  color: AppColors.error.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -238,7 +238,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   gradient: LinearGradient(
                     colors: [
                       AppColors.primary,
-                      AppColors.primary.withOpacity(0.8),
+                      AppColors.primary.withValues(alpha: 0.8),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -268,7 +268,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),
@@ -280,7 +280,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -315,13 +315,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   gradient: LinearGradient(
                     colors: [
                       AppColors.primary,
-                      AppColors.primary.withOpacity(0.8),
+                      AppColors.primary.withValues(alpha: 0.8),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -571,6 +571,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                               fileName = selectedImage!.name;
                             }
 
+                            if (!context.mounted) return;
                             await context.read<CommunityCubit>().createPost(
                               content: contentController.text.trim(),
                               imageBytes: imageBytes,
@@ -578,6 +579,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                               category: selectedCategory,
                             );
 
+                            if (!context.mounted) return;
                             Navigator.pop(context, true);
 
                             // Show success message

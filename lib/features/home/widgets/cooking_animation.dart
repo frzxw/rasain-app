@@ -135,8 +135,8 @@ class _CookingAnimationState extends State<CookingAnimation>
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
                       colors: [
-                        Colors.orange.withOpacity(0.1),
-                        Colors.red.withOpacity(0.05),
+                        Colors.orange.withValues(alpha: 0.1),
+                        Colors.red.withValues(alpha: 0.05),
                         Colors.transparent,
                       ],
                     ),
@@ -168,7 +168,7 @@ class _CookingAnimationState extends State<CookingAnimation>
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -204,10 +204,10 @@ class _CookingAnimationState extends State<CookingAnimation>
                         height: widget.size * 0.35,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
+                              color: Colors.grey.withValues(alpha: 0.3),
                               blurRadius: 8,
                               offset: const Offset(0, 2),
                             ),
@@ -228,7 +228,7 @@ class _CookingAnimationState extends State<CookingAnimation>
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.orange.withOpacity(0.4),
+                              color: Colors.orange.withValues(alpha: 0.4),
                               blurRadius: 6,
                               offset: const Offset(0, 1),
                             ),
@@ -289,7 +289,7 @@ class _CookingAnimationState extends State<CookingAnimation>
         width: 12 + (index * 2),
         height: 8,
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.4),
+          color: Colors.grey.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(6),
         ),
       ),

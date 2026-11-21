@@ -1,13 +1,13 @@
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../core/config/demo_config.dart';
 import '../core/config/supabase_config.dart';
+import '../demo/demo_data.dart';
 import '../models/user_profile.dart';
 import 'notification_service.dart';
 
 class AuthService extends ChangeNotifier {
-  final SupabaseClient _supabase = SupabaseConfig.client;
+  SupabaseClient get _supabase => SupabaseConfig.client;
   NotificationService? _notificationService;
 
   UserProfile? _currentUser;
@@ -15,6 +15,11 @@ class AuthService extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   AuthService() {
+    if (DemoConfig.enabled) {
+      _enterDemoSession();
+      return;
+    }
+
     // Listen to auth state changes
     _supabase.auth.onAuthStateChange.listen((event) {
       _handleAuthStateChange(event);
@@ -22,6 +27,12 @@ class AuthService extends ChangeNotifier {
 
     // Check current session on initialization
     _initializeAuth();
+  }
+
+  void _enterDemoSession() {
+    _currentUser = DemoData.user;
+    _isAuthenticated = true;
+    _error = null;
   }
 
   // Set notification service reference
@@ -242,6 +253,14 @@ class AuthService extends ChangeNotifier {
 
   // Sign out
   Future<void> signOut() async {
+    if (DemoConfig.enabled) {
+      _currentUser = null;
+      _isAuthenticated = false;
+      _notificationService?.setCurrentUser(null);
+      notifyListeners();
+      return;
+    }
+
     _setLoading(true);
     try {
       await _supabase.auth.signOut();
@@ -256,6 +275,8 @@ class AuthService extends ChangeNotifier {
 
   // Check if user is authenticated
   Future<bool> checkAuth() async {
+    if (DemoConfig.enabled) return _isAuthenticated;
+
     debugPrint('🔐 Checking authentication status...');
     _setLoading(true);
     await _checkCurrentSession();
@@ -266,6 +287,16 @@ class AuthService extends ChangeNotifier {
 
   // Login (alias signInWithEmail)
   Future<bool> login(String email, String password) async {
+    if (DemoConfig.enabled) {
+      if (email.trim().isEmpty || password.isEmpty) {
+        _setError('Email dan kata sandi perlu diisi.');
+        return false;
+      }
+      _enterDemoSession();
+      notifyListeners();
+      return true;
+    }
+
     try {
       await signInWithEmail(email, password);
       // Wait for authentication state to update
@@ -287,6 +318,15 @@ class AuthService extends ChangeNotifier {
 
   // Register (alias signUpWithEmail)
   Future<bool> register(String name, String email, String password) async {
+    if (DemoConfig.enabled) {
+      _enterDemoSession();
+      if (name.trim().isNotEmpty) {
+        _currentUser = _currentUser?.copyWith(name: name.trim());
+      }
+      notifyListeners();
+      return true;
+    }
+
     debugPrint('📝 Registering user: $email with name: $name');
     try {
       await signUpWithEmail(email, password, name: name);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/theme/colors.dart';
 import '../../services/recipe_service.dart';
 import '../../cubits/notification/notification_cubit.dart';
@@ -118,7 +117,7 @@ class _ModernRecipeDetailScreenState extends State<ModernRecipeDetailScreen>
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: isSaved
-                                  ? AppColors.highlight.withOpacity(0.2)
+                                  ? AppColors.highlight.withValues(alpha: 0.2)
                                   : Colors.black38,
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -131,16 +130,15 @@ class _ModernRecipeDetailScreenState extends State<ModernRecipeDetailScreen>
                           onPressed: () async {
                             final wasSaved = isSaved;
                             await recipeService.toggleSaveRecipe(recipe.id);
-                            
-                            // Trigger notification
+                            if (!context.mounted) return;
+
                             final notificationCubit = context.read<NotificationCubit>();
                             if (!wasSaved) {
                               await notificationCubit.notifyRecipeSaved(recipe.name, context: context, recipeId: recipe.id);
                             } else {
                               await notificationCubit.notifyRecipeRemoved(recipe.name, context: context, recipeId: recipe.id);
                             }
-                            
-                            // Refresh saved recipes in RecipeCubit to update profile page
+                            if (!context.mounted) return;
                             context.read<RecipeCubit>().getLikedRecipes();
                           },
                         );
@@ -319,7 +317,7 @@ class _ModernRecipeDetailScreenState extends State<ModernRecipeDetailScreen>
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.06),
+              color: AppColors.primary.withValues(alpha: 0.06),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

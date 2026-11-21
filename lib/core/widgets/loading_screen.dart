@@ -77,12 +77,12 @@ class _LoadingScreenState extends State<LoadingScreen>
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.primary, width: 3),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.3),
+                            color: AppColors.primary.withValues(alpha: 0.3),
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
@@ -95,7 +95,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                             fontSize: 50,
                             shadows: [
                               Shadow(
-                                color: AppColors.primary.withOpacity(0.5),
+                                color: AppColors.primary.withValues(alpha: 0.5),
                                 blurRadius: 10,
                                 offset: const Offset(2, 2),
                               ),
@@ -146,7 +146,7 @@ class _LoadingScreenState extends State<LoadingScreen>
             SizedBox(
               width: 200,
               child: LinearProgressIndicator(
-                backgroundColor: AppColors.primary.withOpacity(0.1),
+                backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                 valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                 minHeight: 4,
               ),
@@ -190,7 +190,7 @@ class LoadingOverlay extends StatelessWidget {
         child,
         if (isLoading)
           Container(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             child: Center(
               child: Container(
                 padding: const EdgeInsets.all(AppSizes.paddingXL),
@@ -199,7 +199,7 @@ class LoadingOverlay extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppSizes.radiusL),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 20,
                       spreadRadius: 5,
                     ),

@@ -28,7 +28,7 @@ class ImageUploadSection extends StatelessWidget {
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(AppSizes.radiusL),
               border: Border.all(
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.primary.withValues(alpha: 0.3),
                 style: BorderStyle.solid,
                 width: 2,
               ),
@@ -41,7 +41,7 @@ class ImageUploadSection extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(AppSizes.paddingL),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -138,7 +138,7 @@ class ImageUploadSection extends StatelessWidget {
                 right: AppSizes.marginS,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
+                    color: Colors.black.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(AppSizes.radiusS),
                   ),
                   child: IconButton(
@@ -161,7 +161,7 @@ class ImageUploadSection extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(AppSizes.radiusS),
                     ),
                     child: Text(
@@ -189,6 +189,7 @@ class ImageUploadSection extends StatelessWidget {
       imageQuality: 85,
     );
 
+    if (!context.mounted) return;
     if (images.isNotEmpty) {
       final updatedImages = List<XFile>.from(selectedImages);
       updatedImages.addAll(images);
@@ -216,19 +217,18 @@ class ImageUploadSection extends StatelessWidget {
       imageQuality: 85,
     );
 
-    if (image != null) {
-      final updatedImages = List<XFile>.from(selectedImages);
-      updatedImages.add(image);
-      if (updatedImages.length > 5) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Maksimal 5 foto yang dapat dipilih'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-      } else {
-        onImagesSelected(updatedImages);
-      }
+    if (!context.mounted || image == null) return;
+    final updatedImages = List<XFile>.from(selectedImages);
+    updatedImages.add(image);
+    if (updatedImages.length > 5) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Maksimal 5 foto yang dapat dipilih'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+    } else {
+      onImagesSelected(updatedImages);
     }
   }
 

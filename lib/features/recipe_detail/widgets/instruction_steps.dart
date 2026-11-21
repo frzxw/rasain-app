@@ -115,7 +115,7 @@ class _InstructionStepsState extends State<InstructionSteps> {
         side: BorderSide(
           color:
               isExpanded
-                  ? AppColors.primary.withOpacity(0.3)
+                  ? AppColors.primary.withValues(alpha: 0.3)
                   : AppColors.border,
           width: isExpanded ? 1.5 : 1,
         ),
@@ -137,7 +137,7 @@ class _InstructionStepsState extends State<InstructionSteps> {
             });
           },
           backgroundColor:
-              isExpanded ? AppColors.primary.withOpacity(0.05) : null,
+              isExpanded ? AppColors.primary.withValues(alpha: 0.05) : null,
           collapsedBackgroundColor: AppColors.background,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(AppSizes.radiusM)),
@@ -290,18 +290,16 @@ class _InstructionStepsState extends State<InstructionSteps> {
       final Uri url = Uri.parse(videoUrl);
       if (await canLaunchUrl(url)) {
         await launchUrl(url);
-      } else {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Could not open video link'),
               backgroundColor: AppColors.error,
             ),
           );
-        }
       }
     } catch (e) {
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error opening video: $e'),

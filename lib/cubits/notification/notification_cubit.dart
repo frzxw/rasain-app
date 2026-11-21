@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import '../../models/notification.dart';
 import '../../services/notification_service.dart';
 import '../../models/pantry_item.dart';
 import '../../models/recipe.dart';
@@ -214,7 +213,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Recipe saved to favorites!');
       }
     } catch (e) {
@@ -241,7 +240,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Recipe removed from favorites!');
       }
     } catch (e) {
@@ -268,7 +267,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Item added to pantry!');
       }
     } catch (e) {
@@ -295,7 +294,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Item removed from pantry!');
       }
     } catch (e) {
@@ -322,7 +321,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Review submitted successfully!');
       }
     } catch (e) {
@@ -349,7 +348,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       
       // Show success notification popup if context is provided
-      if (context != null) {
+      if (context != null && context.mounted) {
         _showSuccessNotification(context, 'Rating submitted successfully!');
       }
     } catch (e) {

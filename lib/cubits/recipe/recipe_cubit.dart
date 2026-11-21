@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../models/recipe.dart';
 import '../../services/recipe_service.dart';
@@ -90,22 +89,7 @@ class RecipeCubit extends Cubit<RecipeState> {
       for (var recipe in state.recipes) {
         final isSaved = savedRecipes.any((saved) => saved.id == recipe.id);
         if (recipe.id == recipeId) {
-          updatedRecipeMap[recipe.id] = Recipe(
-            id: recipe.id,
-            name: recipe.name,
-            slug: recipe.slug,
-            imageUrl: recipe.imageUrl,
-            rating: recipe.rating,
-            reviewCount: recipe.reviewCount,
-            estimatedCost: recipe.estimatedCost,
-            cookTime: recipe.cookTime,
-            servings: recipe.servings,
-            ingredients: recipe.ingredients,
-            instructions: recipe.instructions,
-            description: recipe.description,
-            categories: recipe.categories,
-            isSaved: isSaved,
-          );
+          updatedRecipeMap[recipe.id] = recipe.copyWith(isSaved: isSaved);
         } else {
           updatedRecipeMap[recipe.id] = recipe;
         }

@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import '../core/config/demo_config.dart';
+import '../demo/demo_data.dart';
 import '../models/recipe.dart';
 import '../models/pantry_item.dart';
 import '../models/user_profile.dart';
@@ -10,7 +12,7 @@ class DataService {
   factory DataService() => _instance;
   DataService._internal();
 
-  final SupabaseService _supabaseService = SupabaseService.instance;
+  SupabaseService get _supabaseService => SupabaseService.instance;
 
   // Cache for frequently accessed data
   List<String>? _cachedKitchenTools;
@@ -64,6 +66,8 @@ class DataService {
 
   /// Get recipe recommendations
   Future<List<Recipe>> getRecommendedRecipes() async {
+    if (DemoConfig.enabled) return DemoData.recipes().take(4).toList();
+
     try {
       final response = await _supabaseService.client
           .from('recipes')
@@ -79,6 +83,8 @@ class DataService {
   }
   /// Get pantry items from Supabase
   Future<List<PantryItem>> getPantryItems() async {
+    if (DemoConfig.enabled) return DemoData.pantrySnapshot();
+
     try {
       // Get current user ID
       final userId = _supabaseService.client.auth.currentUser?.id;
@@ -102,6 +108,8 @@ class DataService {
     }
   }  /// Add pantry item to Supabase
   Future<PantryItem?> addPantryItem(PantryItem item) async {
+    if (DemoConfig.enabled) return DemoData.addPantryItem(item);
+
     try {
       debugPrint('🔄 DataService: Adding pantry item to database: ${item.name}');
       
@@ -300,6 +308,8 @@ class DataService {
     }
   }  /// Update pantry item in Supabase
   Future<PantryItem?> updatePantryItem(PantryItem item) async {
+    if (DemoConfig.enabled) return DemoData.updatePantryItem(item);
+
     try {
       debugPrint('🔄 DataService: Updating pantry item: ${item.name}');
       
@@ -356,6 +366,8 @@ class DataService {
     }
   }  /// Delete pantry item from Supabase
   Future<bool> deletePantryItem(String id) async {
+    if (DemoConfig.enabled) return DemoData.deletePantryItem(id);
+
     try {
       debugPrint('🔄 DataService: Deleting pantry item with ID: $id');
       
@@ -385,6 +397,8 @@ class DataService {
 
   /// Get kitchen tools from Supabase with caching
   Future<List<String>> getKitchenTools() async {
+    if (DemoConfig.enabled) return DemoData.kitchenTools;
+
     if (_cachedKitchenTools != null) {
       return _cachedKitchenTools!;
     }

@@ -6,8 +6,6 @@ import 'dart:convert';
 import '../models/notification.dart';
 import '../models/pantry_item.dart';
 import '../models/recipe.dart';
-import 'auth_service.dart';
-
 class NotificationService extends ChangeNotifier {
   final List<AppNotification> _notifications = [];
   bool _isLoading = false;

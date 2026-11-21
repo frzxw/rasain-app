@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../core/config/demo_config.dart';
+import '../demo/demo_data.dart';
 import '../models/recipe.dart';
-import '../core/utils/difficulty_level_mapper.dart';
-
 class FavoriteService extends ChangeNotifier {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  SupabaseClient get _supabase => Supabase.instance.client;
 
   List<String> _favoriteRecipeIds = [];
   List<Recipe> _favoriteRecipes = [];
@@ -24,6 +24,15 @@ class FavoriteService extends ChangeNotifier {
 
   // Initialize favorite service
   Future<void> initialize() async {
+    if (DemoConfig.enabled) {
+      final saved = DemoData.recipes().where((recipe) => recipe.isSaved);
+      _favoriteRecipeIds = saved.map((recipe) => recipe.id).toList();
+      _favoriteRecipes = saved.toList();
+      _isLoading = false;
+      notifyListeners();
+      return;
+    }
+
     _isLoading = true;
     _error = null;
     notifyListeners();

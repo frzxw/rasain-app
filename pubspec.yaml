@@ -1,5 +1,5 @@
 name: rasain_app
-description: "A new Flutter project."
+description: "Cook Indonesian food from the ingredients already in your kitchen."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -85,7 +85,18 @@ flutter: # The following line ensures that the Material Icons font is
   uses-material-design: true
 
   assets:
-    - public/assets/images/
+    # Flutter includes only the files in each listed directory.
+    - public/assets/images/recipe/
+    - public/assets/images/pantry/
+    - public/assets/images/community/
+    - public/assets/images/profile/
+    - public/assets/images/ingredient/bakso/
+    - public/assets/images/ingredient/gado_gado/
+    - public/assets/images/ingredient/martabak/
+    - public/assets/images/ingredient/nasgor/
+    - public/assets/images/ingredient/rendang/
+    - public/assets/images/ingredient/sate_madura/
+    - public/assets/images/ingredient/soto_lamongan/
     - .env
 
   # To add assets to your application, add an assets section, like this:

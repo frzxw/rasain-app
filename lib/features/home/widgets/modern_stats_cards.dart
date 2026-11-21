@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../core/config/demo_config.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/theme/colors.dart';
+import '../../../demo/demo_data.dart';
 import '../../../services/supabase_service.dart';
 
 class ModernStatsCards extends StatefulWidget {
@@ -15,7 +17,6 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
   late List<AnimationController> _controllers;
   late List<Animation<double>> _scaleAnimations;
   late List<Animation<double>> _fadeAnimations;
-  final SupabaseService _supabaseService = SupabaseService.instance;
 
   @override
   void initState() {
@@ -65,9 +66,24 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
   }
 
   Future<Map<String, dynamic>> _getStatistics() async {
+    if (DemoConfig.enabled) {
+      final recipes = DemoData.recipes();
+      final ratings = recipes.map((recipe) => recipe.rating).toList();
+      final average =
+          ratings.isEmpty
+              ? 0.0
+              : ratings.reduce((a, b) => a + b) / ratings.length;
+      return {
+        'totalRecipes': recipes.length,
+        'activeChefs': DemoData.posts().map((post) => post.userId).toSet().length,
+        'averageRating': average,
+      };
+    }
+
+    final supabaseService = SupabaseService.instance;
     try {
       // Get total recipe count
-      final response = await _supabaseService.client
+      final response = await supabaseService.client
           .from('recipes')
           .select('rating')
           .order('created_at', ascending: false);
@@ -91,7 +107,7 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
       }
 
       // Get active chefs count (users who have created recipes)
-      final chefsResponse = await _supabaseService.client
+      final chefsResponse = await supabaseService.client
           .from('recipes')
           .select('created_by')
           .not('created_by', 'is', null);
@@ -105,7 +121,7 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
         'averageRating': averageRating,
       };
     } catch (e) {
-      print('❌ Error fetching statistics: $e');
+      debugPrint('❌ Error fetching statistics: $e');
       return {'totalRecipes': 0, 'activeChefs': 0, 'averageRating': 0.0};
     }
   }
@@ -278,17 +294,17 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
             color: Colors.white,
             borderRadius: BorderRadius.circular(AppSizes.radiusL),
             border: Border.all(
-              color: (stat['color'] as Color).withOpacity(0.2 + (value * 0.1)),
+              color: (stat['color'] as Color).withValues(alpha: 0.2 + (value * 0.1)),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: (stat['color'] as Color).withOpacity(0.1),
+                color: (stat['color'] as Color).withValues(alpha: 0.1),
                 blurRadius: 15,
                 offset: const Offset(0, 4),
               ),
               BoxShadow(
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
                 blurRadius: 10,
                 offset: const Offset(0, -2),
               ),
@@ -311,7 +327,7 @@ class _ModernStatsCardsState extends State<ModernStatsCards>
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: (stat['color'] as Color).withOpacity(0.3),
+                            color: (stat['color'] as Color).withValues(alpha: 0.3),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
+import '../../core/config/demo_config.dart';
 import '../../services/auth_service.dart';
 import 'auth_state.dart';
 
@@ -92,11 +94,22 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
       final success = await _authService.register(name, email, password);
+      if (success && DemoConfig.enabled) {
+        emit(
+          state.copyWith(
+            user: _authService.currentUser,
+            status: AuthStatus.authenticated,
+            errorMessage: null,
+          ),
+        );
+        return true;
+      }
+
       if (success) {
         // For Supabase, after successful signup but before email confirmation,
         // currentUser will be null. This is expected behavior.
         // We should set emailVerificationPending state regardless of currentUser status
-        print(
+        debugPrint(
           'AuthCubit: Registration successful, setting email verification pending state',
         );
 
@@ -110,7 +123,7 @@ class AuthCubit extends Cubit<AuthState> {
           ),
         );
 
-        print('AuthCubit: State emitted - Status: ${state.status}');
+        debugPrint('AuthCubit: State emitted - Status: ${state.status}');
         return true;
       } else {
         emit(
@@ -122,7 +135,7 @@ class AuthCubit extends Cubit<AuthState> {
         return false;
       }
     } catch (e) {
-      print('AuthCubit: Registration error: $e');
+      debugPrint('AuthCubit: Registration error: $e');
       emit(
         state.copyWith(status: AuthStatus.error, errorMessage: e.toString()),
       );
@@ -205,7 +218,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<bool> deleteAccount({String? password}) async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
-      print('AuthCubit: Deleting account');
+      debugPrint('AuthCubit: Deleting account');
 
       if (password != null) {
         // If password provided, use it
@@ -230,7 +243,7 @@ class AuthCubit extends Cubit<AuthState> {
         return true;
       }
     } catch (e) {
-      print('AuthCubit: Error deleting account: $e');
+      debugPrint('AuthCubit: Error deleting account: $e');
       emit(
         state.copyWith(status: AuthStatus.error, errorMessage: e.toString()),
       );
@@ -342,13 +355,13 @@ class AuthCubit extends Cubit<AuthState> {
   // Handle authentication state changes (e.g., after email confirmation)
   Future<void> handleAuthStateChange() async {
     try {
-      print('AuthCubit: Handling auth state change');
+      debugPrint('AuthCubit: Handling auth state change');
 
       // Check if user is now authenticated
       final isLoggedIn = await _authService.checkAuth();
 
       if (isLoggedIn && _authService.currentUser != null) {
-        print('AuthCubit: User is now authenticated after email confirmation');
+        debugPrint('AuthCubit: User is now authenticated after email confirmation');
 
         emit(
           state.copyWith(
@@ -358,11 +371,11 @@ class AuthCubit extends Cubit<AuthState> {
           ),
         );
       } else {
-        print('AuthCubit: User is not authenticated');
+        debugPrint('AuthCubit: User is not authenticated');
         emit(state.copyWith(status: AuthStatus.unauthenticated));
       }
     } catch (e) {
-      print('AuthCubit: Error handling auth state change: $e');
+      debugPrint('AuthCubit: Error handling auth state change: $e');
       emit(
         state.copyWith(status: AuthStatus.error, errorMessage: e.toString()),
       );

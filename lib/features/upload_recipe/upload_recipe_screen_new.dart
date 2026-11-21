@@ -30,20 +30,12 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
   final TextEditingController _cookingTimeController = TextEditingController();
   final TextEditingController _ingredientController = TextEditingController();
   final TextEditingController _instructionController = TextEditingController();
-  final TextEditingController _estimatedCostController =
-      TextEditingController();
-  final TextEditingController _tipsController = TextEditingController();
-  final TextEditingController _caloriesController = TextEditingController();
-  final TextEditingController _proteinController = TextEditingController();
-  final TextEditingController _carbsController = TextEditingController();
-  final TextEditingController _fatController = TextEditingController();
   // Form data
   List<XFile> _selectedImages = [];
   List<Uint8List> _imageBytes = []; // For web preview
-  List<String> _ingredients = [];
-  List<String> _instructions = [];
+  final List<String> _ingredients = [];
+  final List<String> _instructions = [];
   String? _selectedCategory;
-  String? _selectedDifficulty;
 
   // Animation controller
   late AnimationController _animationController;
@@ -57,8 +49,6 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
     'Snack',
     'Tradisional',
   ];
-
-  final List<String> _difficultyLevels = ['easy', 'medium', 'hard'];
 
   @override
   void initState() {
@@ -228,7 +218,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
             height: 80,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.primary, AppColors.primary.withOpacity(0.7)],
+                colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.7)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -268,9 +258,9 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
       margin: const EdgeInsets.all(AppSizes.paddingL),
       padding: const EdgeInsets.all(AppSizes.paddingL),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 1),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         children: [
@@ -750,6 +740,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
           }
         }
 
+        if (!mounted) return;
         setState(() {
           _selectedImages = images.take(5).toList();
           if (kIsWeb) {
@@ -758,6 +749,7 @@ class _UploadRecipeScreenState extends State<UploadRecipeScreen>
         });
       }
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error selecting images: $e')));

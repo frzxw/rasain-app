@@ -1,69 +1,72 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../services/auth_service.dart';
 import '../../cubits/auth/auth_cubit.dart';
+import 'demo_config.dart';
 
 class AuthListener {
   final AuthService _authService;
   final AuthCubit _authCubit;
 
   AuthListener(this._authService, this._authCubit) {
+    if (DemoConfig.enabled) return;
     _initializeAuthListener();
   }
 
   void _initializeAuthListener() {
-    print('AuthListener: Initializing auth state listener');
+    debugPrint('AuthListener: Initializing auth state listener');
 
     // Listen to Supabase auth state changes
     Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       final AuthChangeEvent event = data.event;
       final Session? session = data.session;
 
-      print('AuthListener: Auth state changed - Event: $event');
+      debugPrint('AuthListener: Auth state changed - Event: $event');
 
       switch (event) {
         case AuthChangeEvent.signedIn:
-          print('AuthListener: User signed in via deep link or direct');
+          debugPrint('AuthListener: User signed in via deep link or direct');
           _handleSignedIn(session);
           break;
         case AuthChangeEvent.signedOut:
-          print('AuthListener: User signed out');
+          debugPrint('AuthListener: User signed out');
           _handleSignedOut();
           break;
         case AuthChangeEvent.tokenRefreshed:
-          print('AuthListener: Token refreshed');
+          debugPrint('AuthListener: Token refreshed');
           break;
         case AuthChangeEvent.userUpdated:
-          print('AuthListener: User updated');
+          debugPrint('AuthListener: User updated');
           break;
         case AuthChangeEvent.passwordRecovery:
-          print('AuthListener: Password recovery');
+          debugPrint('AuthListener: Password recovery');
           break;
         default:
-          print('AuthListener: Unknown auth event: $event');
+          debugPrint('AuthListener: Unknown auth event: $event');
       }
     });
   }
 
   void _handleSignedIn(Session? session) {
     if (session?.user != null) {
-      print('AuthListener: Processing sign in for user: ${session!.user.id}');
+      debugPrint('AuthListener: Processing sign in for user: ${session!.user.id}');
 
       // Force refresh the auth service to load user profile
       _authService
           .checkAuth()
           .then((_) {
-            print('AuthListener: Auth service updated after sign in');
+            debugPrint('AuthListener: Auth service updated after sign in');
             // Notify AuthCubit to refresh its state
             _authCubit.handleAuthStateChange();
           })
           .catchError((error) {
-            print('AuthListener: Error updating auth service: $error');
+            debugPrint('AuthListener: Error updating auth service: $error');
           });
     }
   }
 
   void _handleSignedOut() {
-    print('AuthListener: Processing sign out');
+    debugPrint('AuthListener: Processing sign out');
     // Auth service will handle this automatically through its own listener
   }
 }

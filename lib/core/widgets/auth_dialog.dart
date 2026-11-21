@@ -179,6 +179,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
 
         if (success && mounted) {
           await Future.delayed(const Duration(milliseconds: 200));
+          if (!mounted) return;
           Navigator.pop(context);
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -204,6 +205,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
           _passwordController.text,
         );
 
+        if (!mounted) return;
         final newState = context.read<AuthCubit>().state;
         if (newState.status == AuthStatus.emailVerificationPending && mounted) {
           Navigator.pop(context);
@@ -272,7 +274,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
+                    color: Colors.black.withValues(alpha: 0.15),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -296,8 +298,8 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
         gradient: LinearGradient(
           colors: [
             AppColors.primary,
-            AppColors.primary.withOpacity(0.8),
-            AppColors.primary.withOpacity(0.9),
+            AppColors.primary.withValues(alpha: 0.8),
+            AppColors.primary.withValues(alpha: 0.9),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -309,7 +311,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -322,11 +324,11 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -371,7 +373,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                             : 'Buat akun baru untuk memulai',
                         key: ValueKey('${_isLogin}_subtitle'),
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontSize: 14,
                         ),
                       ),
@@ -382,7 +384,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                 ),
                 child: IconButton(
                   onPressed: () => Navigator.pop(context),
@@ -398,14 +400,14 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
+                color: Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 children: [
                   Icon(
                     Icons.info_outline,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     size: 16,
                   ),
                   const SizedBox(width: 8),
@@ -413,7 +415,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                     child: Text(
                       widget.redirectMessage!,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                         fontSize: 12,
                       ),
                     ),
@@ -578,10 +580,10 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                             margin: const EdgeInsets.only(top: 16),
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.1),
+                              color: Colors.red.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: Colors.red.withOpacity(0.3),
+                                color: Colors.red.withValues(alpha: 0.3),
                               ),
                             ),
                             child: Row(
@@ -619,10 +621,10 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                               horizontal: 16,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.1),
+                              color: AppColors.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: AppColors.primary.withOpacity(0.2),
+                                color: AppColors.primary.withValues(alpha: 0.2),
                               ),
                             ),
                             child: Row(
@@ -758,7 +760,7 @@ class _AuthDialogWidgetState extends State<AuthDialogWidget>
                         borderRadius: BorderRadius.circular(12),
                       ),
                       elevation: isLoading ? 0 : 2,
-                      shadowColor: AppColors.primary.withOpacity(0.3),
+                      shadowColor: AppColors.primary.withValues(alpha: 0.3),
                     ),
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
@@ -940,7 +942,7 @@ class _PasswordResetDialogState extends State<PasswordResetDialog>
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -953,7 +955,7 @@ class _PasswordResetDialogState extends State<PasswordResetDialog>
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -964,7 +966,7 @@ class _PasswordResetDialogState extends State<PasswordResetDialog>
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Icon(
@@ -1053,10 +1055,10 @@ class _PasswordResetDialogState extends State<PasswordResetDialog>
                               Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(0.1),
+                                  color: Colors.red.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Colors.red.withOpacity(0.3),
+                                    color: Colors.red.withValues(alpha: 0.3),
                                   ),
                                 ),
                                 child: Row(

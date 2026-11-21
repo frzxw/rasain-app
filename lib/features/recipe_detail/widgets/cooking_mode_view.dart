@@ -8,10 +8,10 @@ class CookingModeView extends StatefulWidget {
   final VoidCallback? onExit;
 
   const CookingModeView({
-    Key? key,
+    super.key,
     required this.recipe,
     this.onExit,
-  }) : super(key: key);
+  });
 
   @override
   State<CookingModeView> createState() => _CookingModeViewState();
@@ -102,12 +102,12 @@ class _CookingModeViewState extends State<CookingModeView>
     if (minutes == null || minutes <= 0) return '';
     
     if (minutes < 60) {
-      return '${minutes} menit';
+      return '$minutes menit';
     } else {
       int hours = minutes ~/ 60;
       int remainingMinutes = minutes % 60;
       if (remainingMinutes == 0) {
-        return '${hours} jam';
+        return '$hours jam';
       } else {
         return '${hours}j ${remainingMinutes}m';
       }
@@ -143,7 +143,7 @@ class _CookingModeViewState extends State<CookingModeView>
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -302,7 +302,7 @@ class _CookingModeViewState extends State<CookingModeView>
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             ),
@@ -380,13 +380,13 @@ class _CookingModeViewState extends State<CookingModeView>
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.orange.withOpacity(0.1),
-                                Colors.orange.withOpacity(0.05),
+                                Colors.orange.withValues(alpha: 0.1),
+                                Colors.orange.withValues(alpha: 0.05),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                              color: Colors.orange.withOpacity(0.3),
+                              color: Colors.orange.withValues(alpha: 0.3),
                             ),
                           ),
                           child: Column(
@@ -476,7 +476,7 @@ class _CookingModeViewState extends State<CookingModeView>
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, -2),
                   ),

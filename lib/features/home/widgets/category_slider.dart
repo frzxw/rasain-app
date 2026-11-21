@@ -40,7 +40,7 @@ class CategorySlider extends StatelessWidget {
                 }
               },
               backgroundColor: AppColors.surface,
-              selectedColor: AppColors.primary.withOpacity(0.1),
+              selectedColor: AppColors.primary.withValues(alpha: 0.1),
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.primary : AppColors.textPrimary,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,

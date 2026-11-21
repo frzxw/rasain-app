@@ -119,7 +119,7 @@ class _AllCommunityRecipesScreenState extends State<AllCommunityRecipesScreen> {
                   _selectedFilter = filter;
                 });
               },
-              selectedColor: AppColors.primary.withOpacity(0.2),
+              selectedColor: AppColors.primary.withValues(alpha: 0.2),
               backgroundColor: AppColors.surface,
               labelStyle: TextStyle(
                 color: isSelected ? AppColors.primary : AppColors.textSecondary,
@@ -170,7 +170,7 @@ class _AllCommunityRecipesScreenState extends State<AllCommunityRecipesScreen> {
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -383,7 +383,7 @@ class _AllCommunityRecipesScreenState extends State<AllCommunityRecipesScreen> {
           Icon(
             Icons.restaurant_menu,
             size: 64,
-            color: AppColors.textSecondary.withOpacity(0.5),
+            color: AppColors.textSecondary.withValues(alpha: 0.5),
           ),
           const SizedBox(height: AppSizes.marginM),
           Text(

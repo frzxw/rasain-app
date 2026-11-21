@@ -8,7 +8,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (success && mounted) {
         // Success is handled by BlocListener
-        print('LoginScreen: Login berhasil');
+        debugPrint('LoginScreen: Login berhasil');
       }
     }
   }
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state.status == AuthStatus.authenticated) {
           // Navigate to home screen
-            print('LoginScreen: User terautentikasi, navigasi ke beranda');
+            debugPrint('LoginScreen: User terautentikasi, navigasi ke beranda');
           context.go('/');
         } else if (state.status == AuthStatus.error) {
           // Show error message
@@ -107,9 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.blue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                    border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
                   ),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

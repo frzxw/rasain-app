@@ -50,6 +50,7 @@ class ProfileSetupErrorWidget extends StatelessWidget {
                   onPressed: () async {
                     try {
                       await DebugCheck.fixUserProfilesIssues();
+                      if (!context.mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
@@ -59,6 +60,7 @@ class ProfileSetupErrorWidget extends StatelessWidget {
                         ),
                       );
                     } catch (e) {
+                      if (!context.mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Fix failed: $e'),
@@ -79,6 +81,7 @@ class ProfileSetupErrorWidget extends StatelessWidget {
                     final authService = context.read<AuthService>();
                     try {
                       await authService.retryProfileCreation();
+                      if (!context.mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Profile creation retried'),
@@ -86,6 +89,7 @@ class ProfileSetupErrorWidget extends StatelessWidget {
                         ),
                       );
                     } catch (e) {
+                      if (!context.mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Retry failed: $e'),

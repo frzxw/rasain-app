@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/sizes.dart';
 import '../../../core/theme/colors.dart';
 
 class FilterTags extends StatelessWidget {
@@ -42,7 +41,7 @@ class FilterTags extends StatelessWidget {
                           ? LinearGradient(
                             colors: [
                               AppColors.primary,
-                              AppColors.primary.withOpacity(0.8),
+                              AppColors.primary.withValues(alpha: 0.8),
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -59,7 +58,7 @@ class FilterTags extends StatelessWidget {
                       isSelected
                           ? [
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.3),
+                              color: AppColors.primary.withValues(alpha: 0.3),
                               blurRadius: 8,
                               offset: const Offset(0, 2),
                             ),

@@ -23,7 +23,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
   late Animation<double> _fadeAnimation;
   int _currentStep = 0;
   bool _isCookingMode = false;
-  Set<int> _completedSteps = {};
+  final Set<int> _completedSteps = {};
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -86,7 +86,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                 gradient: LinearGradient(
                   colors: [
                     AppColors.primary,
-                    AppColors.primary.withOpacity(0.8),
+                    AppColors.primary.withValues(alpha: 0.8),
                   ],
                 ),
                 borderRadius: const BorderRadius.only(
@@ -102,7 +102,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Icon(
@@ -127,7 +127,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                             Text(
                               '${widget.instructions.length} langkah',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                                 fontSize: 12,
                               ),
                             ),
@@ -163,10 +163,10 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                  color: Colors.white.withOpacity(0.3),
+                                  color: Colors.white.withValues(alpha: 0.3),
                                   width: 1,
                                 ),
                               ),
@@ -208,8 +208,8 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                             decoration: BoxDecoration(
                               color:
                                   _isCookingMode
-                                      ? Colors.white.withOpacity(0.3)
-                                      : Colors.white.withOpacity(0.2),
+                                      ? Colors.white.withValues(alpha: 0.3)
+                                      : Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
@@ -327,7 +327,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                           color: (isCompleted
                                   ? AppColors.success
                                   : AppColors.primary)
-                              .withOpacity(0.3),
+                              .withValues(alpha: 0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -360,14 +360,14 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                       decoration: BoxDecoration(
                         color:
                             isCompleted
-                                ? AppColors.success.withOpacity(0.1)
+                                ? AppColors.success.withValues(alpha: 0.1)
                                 : Colors.grey[50],
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color:
                               isCompleted
-                                  ? AppColors.success.withOpacity(0.3)
-                                  : Colors.grey.withOpacity(0.2),
+                                  ? AppColors.success.withValues(alpha: 0.3)
+                                  : Colors.grey.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Column(
@@ -382,7 +382,7 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.1),
+                                color: AppColors.primary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Row(
@@ -500,12 +500,12 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.primary.withOpacity(0.1),
-                AppColors.primary.withOpacity(0.05),
+                AppColors.primary.withValues(alpha: 0.1),
+                AppColors.primary.withValues(alpha: 0.05),
               ],
             ),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -647,12 +647,12 @@ class _ModernInstructionStepsState extends State<ModernInstructionSteps>
     if (minutes == null || minutes <= 0) return '';
 
     if (minutes < 60) {
-      return '${minutes} menit';
+      return '$minutes menit';
     } else {
       int hours = minutes ~/ 60;
       int remainingMinutes = minutes % 60;
       if (remainingMinutes == 0) {
-        return '${hours} jam';
+        return '$hours jam';
       } else {
         return '${hours}j ${remainingMinutes}m';
       }

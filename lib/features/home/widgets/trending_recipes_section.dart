@@ -101,7 +101,7 @@ class _TrendingRecipesSectionState extends State<TrendingRecipesSection>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFFF6B35).withOpacity(0.3),
+                      color: const Color(0xFFFF6B35).withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -179,10 +179,10 @@ class _TrendingRecipesSectionState extends State<TrendingRecipesSection>
           colors: [Colors.white, Colors.grey.shade50],
         ),
         borderRadius: BorderRadius.circular(AppSizes.radiusXL),
-        border: Border.all(color: AppColors.border.withOpacity(0.5), width: 1),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5), width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -215,7 +215,7 @@ class _TrendingRecipesSectionState extends State<TrendingRecipesSection>
                           if (index < recipes.length - 1)
                             Divider(
                               height: 1,
-                              color: AppColors.border.withOpacity(0.3),
+                              color: AppColors.border.withValues(alpha: 0.3),
                               indent: AppSizes.paddingL,
                               endIndent: AppSizes.paddingL,
                             ),
@@ -236,7 +236,7 @@ class _TrendingRecipesSectionState extends State<TrendingRecipesSection>
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(AppSizes.radiusXL),
-        border: Border.all(color: AppColors.border.withOpacity(0.5), width: 1),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5), width: 1),
       ),
       child: const Center(
         child: Column(
@@ -296,7 +296,7 @@ class _TrendingRecipesSectionState extends State<TrendingRecipesSection>
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(AppSizes.radiusXL),
-        border: Border.all(color: AppColors.border.withOpacity(0.5), width: 1),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5), width: 1),
       ),
       child: Center(
         child: Column(

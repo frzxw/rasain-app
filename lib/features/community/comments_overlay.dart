@@ -314,7 +314,7 @@ class _CommentsOverlayState extends State<CommentsOverlay> {
           // User avatar
           CircleAvatar(
             radius: 18,
-            backgroundColor: AppColors.primary.withOpacity(0.1),
+            backgroundColor: AppColors.primary.withValues(alpha: 0.1),
             backgroundImage: comment.authorAvatar != null
                 ? NetworkImage(comment.authorAvatar!)
                 : null,

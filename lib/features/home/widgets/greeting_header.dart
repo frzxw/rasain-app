@@ -85,12 +85,12 @@ class _GreetingHeaderState extends State<GreetingHeader>
           color: Colors.white,
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
           border: Border.all(
-            color: (greeting['borderColor'] as Color).withOpacity(0.1),
+            color: (greeting['borderColor'] as Color).withValues(alpha: 0.1),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: (greeting['borderColor'] as Color).withOpacity(0.08),
+              color: (greeting['borderColor'] as Color).withValues(alpha: 0.08),
               blurRadius: 15,
               offset: const Offset(0, 4),
             ),
@@ -158,14 +158,14 @@ class _GreetingHeaderState extends State<GreetingHeader>
       builder: (context, child) {
         return Transform.rotate(
           angle: _panAnimation.value * 0.1, // Lebih halus
-          child: Container(
+          child: SizedBox(
             width: 100,
             height: 100,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 // Teflon dengan emoji
-                Container(
+                SizedBox(
                   width: 80,
                   height: 80,
                   child: Center(
@@ -175,7 +175,7 @@ class _GreetingHeaderState extends State<GreetingHeader>
                         fontSize: 60,
                         shadows: [
                           Shadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                             blurRadius: 3,
                             offset: const Offset(2, 2),
                           ),
@@ -196,7 +196,7 @@ class _GreetingHeaderState extends State<GreetingHeader>
                         fontSize: 25,
                         shadows: [
                           Shadow(
-                            color: Colors.orange.withOpacity(0.3),
+                            color: Colors.orange.withValues(alpha: 0.3),
                             blurRadius: 2,
                             offset: const Offset(1, 1),
                           ),
@@ -214,7 +214,7 @@ class _GreetingHeaderState extends State<GreetingHeader>
                       '💨',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                       ),
                     ),
                   ),

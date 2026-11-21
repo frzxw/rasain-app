@@ -30,7 +30,7 @@ class IngredientTile extends StatelessWidget {
         color: isOwned ? AppColors.surface : AppColors.background,
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
         border: Border.all(
-          color: isOwned ? AppColors.success.withOpacity(0.3) : AppColors.border,
+          color: isOwned ? AppColors.success.withValues(alpha: 0.3) : AppColors.border,
         ),
       ),
       child: Row(
@@ -44,7 +44,7 @@ class IngredientTile extends StatelessWidget {
                 width: AppSizes.iconM,
                 height: AppSizes.iconM,
                 decoration: BoxDecoration(
-                  color: isOwned ? AppColors.success.withOpacity(0.1) : AppColors.surface,
+                  color: isOwned ? AppColors.success.withValues(alpha: 0.1) : AppColors.surface,
                   borderRadius: BorderRadius.circular(AppSizes.radiusXS),
                   border: Border.all(
                     color: isOwned ? AppColors.success : AppColors.border,

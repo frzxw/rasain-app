@@ -51,11 +51,12 @@ class _ReviewSectionState extends State<ReviewSection> {
 
     try {
       final reviews = await _recipeService.getRecipeReviews(widget.recipe.id);
+      if (!mounted) return;
       
       // Debug: Check if any reviews belong to wrong recipe
       for (final review in reviews) {
         if (review['recipe_id'] != null && review['recipe_id'] != widget.recipe.id) {
-          print('❌ WRONG REVIEW: Review ${review['id']} belongs to recipe ${review['recipe_id']} but showing in ${widget.recipe.id}');
+          debugPrint('❌ WRONG REVIEW: Review ${review['id']} belongs to recipe ${review['recipe_id']} but showing in ${widget.recipe.id}');
         }
       }
       
@@ -127,7 +128,7 @@ class _ReviewSectionState extends State<ReviewSection> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         children: [
@@ -135,7 +136,7 @@ class _ReviewSectionState extends State<ReviewSection> {
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingL),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.radiusM),
             ),
             child: Column(
@@ -301,9 +302,9 @@ class _ReviewSectionState extends State<ReviewSection> {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSizes.paddingL),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
-        border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
@@ -493,7 +494,7 @@ class _ReviewSectionState extends State<ReviewSection> {
             children: [              // User Avatar with profile image
               CircleAvatar(
                 radius: 20,
-                backgroundColor: AppColors.primary.withOpacity(0.1),
+                backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                 backgroundImage: userImage != null && userImage.isNotEmpty 
                     ? NetworkImage(userImage) 
                     : null,
@@ -632,7 +633,7 @@ class _ReviewSectionState extends State<ReviewSection> {
       // Call the callback to rate the recipe (for updating local state)
       widget.onRateRecipe(_userRating, _reviewController.text.trim());
 
-      // Trigger notification
+      if (!mounted) return;
       final notificationCubit = context.read<NotificationCubit>();
       if (_reviewController.text.trim().isNotEmpty) {
         await notificationCubit.notifyReviewSubmitted(widget.recipe.name, context: context, recipeId: widget.recipe.id);
@@ -642,9 +643,8 @@ class _ReviewSectionState extends State<ReviewSection> {
 
       // Reload reviews to show the new/updated one
       await _loadReviews();
+      if (!mounted) return;
 
-      // Don't set _hasRated = true if we want to allow review updates
-      // Instead, check if current user has reviewed after reloading
       final authState = context.read<AuthCubit>().state;
       if (authState.status == AuthStatus.authenticated) {
         final currentUserId = authState.user?.id;

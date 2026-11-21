@@ -71,7 +71,7 @@ class AppTheme {
         color: cardColor,
         margin: const EdgeInsets.symmetric(vertical: 8),
         surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.black.withOpacity(0.05),
+        shadowColor: Colors.black.withValues(alpha: 0.05),
       ),
       
       // Input Decoration Theme with cleaner styling
@@ -105,7 +105,7 @@ class AppTheme {
           ),
         ),
         hintStyle: TextStyle(
-          color: textSecondary.withOpacity(0.7),
+          color: textSecondary.withValues(alpha: 0.7),
           fontSize: 14,
         ),
         labelStyle: const TextStyle(
@@ -188,7 +188,7 @@ class AppTheme {
       // Chip Theme with modern styling
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surface,
-        selectedColor: colorScheme.primary.withOpacity(0.15),
+        selectedColor: colorScheme.primary.withValues(alpha: 0.15),
         disabledColor: AppColors.disabledColor,
         labelStyle: const TextStyle(
           fontSize: 13,
@@ -207,7 +207,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        side: BorderSide(color: borderColor.withOpacity(0.5)),
+        side: BorderSide(color: borderColor.withValues(alpha: 0.5)),
         checkmarkColor: colorScheme.primary,
         surfaceTintColor: Colors.transparent,
       ),
@@ -247,7 +247,7 @@ class AppTheme {
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return colorScheme.primary.withOpacity(0.5);
+            return colorScheme.primary.withValues(alpha: 0.5);
           }
           return AppColors.disabledColor;
         }),
@@ -278,7 +278,7 @@ class AppTheme {
       scrollbarTheme: ScrollbarThemeData(
         radius: const Radius.circular(8),
         thickness: WidgetStateProperty.all(4), // Thinner scrollbar
-        thumbColor: WidgetStateProperty.all(colorScheme.primary.withOpacity(0.3)),
+        thumbColor: WidgetStateProperty.all(colorScheme.primary.withValues(alpha: 0.3)),
       ),
       
       // Sheet themes with modern styling
@@ -304,8 +304,8 @@ class AppTheme {
       // Modern progress indicators
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colorScheme.primary,
-        circularTrackColor: colorScheme.primary.withOpacity(0.15),
-        linearTrackColor: colorScheme.primary.withOpacity(0.15),
+        circularTrackColor: colorScheme.primary.withValues(alpha: 0.15),
+        linearTrackColor: colorScheme.primary.withValues(alpha: 0.15),
         refreshBackgroundColor: AppColors.surface,
       ),
       

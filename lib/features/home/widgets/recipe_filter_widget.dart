@@ -63,7 +63,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -185,7 +185,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
                         color:
                             isSelected
                                 ? AppColors.primary
-                                : AppColors.primary.withOpacity(0.3),
+                                : AppColors.primary.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Text(
@@ -208,7 +208,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
         Container(
           padding: const EdgeInsets.all(AppSizes.paddingM),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(AppSizes.radiusS),
           ),
           child: Row(
@@ -247,7 +247,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
           max: maxPrice,
           divisions: 20,
           activeColor: AppColors.primary,
-          inactiveColor: AppColors.primary.withOpacity(0.3),
+          inactiveColor: AppColors.primary.withValues(alpha: 0.3),
           onChanged: widget.onPriceRangeChanged,
         ),
       ],
@@ -302,7 +302,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
                         color:
                             isSelected
                                 ? AppColors.success
-                                : AppColors.success.withOpacity(0.3),
+                                : AppColors.success.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Text(
@@ -325,7 +325,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
         Container(
           padding: const EdgeInsets.all(AppSizes.paddingM),
           decoration: BoxDecoration(
-            color: AppColors.success.withOpacity(0.1),
+            color: AppColors.success.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(AppSizes.radiusS),
           ),
           child: Row(
@@ -364,7 +364,7 @@ class _RecipeFilterWidgetState extends State<RecipeFilterWidget> {
           max: maxTime,
           divisions: 18, // 10-minute intervals
           activeColor: AppColors.success,
-          inactiveColor: AppColors.success.withOpacity(0.3),
+          inactiveColor: AppColors.success.withValues(alpha: 0.3),
           onChanged: widget.onTimeRangeChanged,
         ),
       ],

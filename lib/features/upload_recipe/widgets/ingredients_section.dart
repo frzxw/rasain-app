@@ -37,7 +37,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
             borderRadius: BorderRadius.circular(AppSizes.radiusL),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -114,7 +114,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.2),
+          color: AppColors.primary.withValues(alpha: 0.2),
           style: BorderStyle.solid,
         ),
       ),
@@ -124,7 +124,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingL),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -160,7 +160,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -214,7 +214,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppSizes.radiusM),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         children: [
@@ -222,7 +222,7 @@ class _IngredientsSectionState extends State<IngredientsSection> {
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(

@@ -146,7 +146,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: (iconColor ?? AppColors.primary).withOpacity(0.1),
+                color: (iconColor ?? AppColors.primary).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -287,10 +287,10 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                     AppSizes.paddingS,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: AppColors.error.withOpacity(0.1),
+                                    color: AppColors.error.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: AppColors.error.withOpacity(0.3),
+                                      color: AppColors.error.withValues(alpha: 0.3),
                                     ),
                                   ),
                                   child: Row(

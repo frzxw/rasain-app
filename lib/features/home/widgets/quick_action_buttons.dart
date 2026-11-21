@@ -107,7 +107,7 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                                 end: Alignment.bottomRight,
                                 colors: [
                                   AppColors.primary,
-                                  AppColors.primary.withOpacity(0.8),
+                                  AppColors.primary.withValues(alpha: 0.8),
                                 ],
                               ),
                               onTap: () {
@@ -204,12 +204,12 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
           borderRadius: BorderRadius.circular(AppSizes.radiusXL),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.4),
+              color: AppColors.primary.withValues(alpha: 0.4),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
             BoxShadow(
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
@@ -230,11 +230,11 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                     AppSizes.paddingS,
                   ), // Reduced padding
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2 + (value * 0.1)),
+                    color: Colors.white.withValues(alpha: 0.2 + (value * 0.1)),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.white.withOpacity(0.3),
+                        color: Colors.white.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -276,7 +276,7 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                 Text(
                   subtitle,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     fontWeight: FontWeight.w500,
                     fontSize: 11, // Further reduced font size
                   ),
@@ -312,21 +312,21 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  color.withOpacity(0.1),
-                  color.withOpacity(0.05),
+                  color.withValues(alpha: 0.1),
+                  color.withValues(alpha: 0.05),
                   Colors.white,
                 ],
               ),
               borderRadius: BorderRadius.circular(AppSizes.radiusL),
-              border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+              border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   blurRadius: 15,
                   offset: const Offset(0, 4),
                 ),
                 BoxShadow(
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                   blurRadius: 10,
                   offset: const Offset(0, -2),
                 ),
@@ -345,10 +345,10 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                       child: Container(
                         padding: const EdgeInsets.all(AppSizes.paddingS),
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.15),
+                          color: color.withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: color.withOpacity(0.3),
+                            color: color.withValues(alpha: 0.3),
                             width: 1,
                           ),
                         ),
@@ -371,7 +371,7 @@ class _QuickActionButtonsState extends State<QuickActionButtons>
                 // Arrow
                 Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: color.withOpacity(0.6),
+                  color: color.withValues(alpha: 0.6),
                   size: 14,
                 ),
               ],

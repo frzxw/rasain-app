@@ -41,12 +41,12 @@ class TrendingTopics extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
           border: Border.all(
-            color: AppColors.primary.withOpacity(0.2),
+            color: AppColors.primary.withValues(alpha: 0.2),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

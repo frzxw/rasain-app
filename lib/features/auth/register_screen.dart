@@ -8,7 +8,7 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (success && mounted) {
         // Success is handled by BlocListener
-        print('RegisterScreen: Registrasi berhasil');
+        debugPrint('RegisterScreen: Registrasi berhasil');
       }
     }
   }
@@ -48,16 +48,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listenWhen: (previous, current) {
-        print(
+        debugPrint(
           'RegisterScreen: State transition - Previous: ${previous.status}, Current: ${current.status}',
         );
         return previous.status != current.status;
       },
       listener: (context, state) {
-        print('RegisterScreen: Status berubah - Status: ${state.status}');
+        debugPrint('RegisterScreen: Status berubah - Status: ${state.status}');
         if (state.status == AuthStatus.emailVerificationPending) {
           // Navigate to email verification screen
-            print('RegisterScreen: Navigasi ke layar verifikasi email');
+            debugPrint('RegisterScreen: Navigasi ke layar verifikasi email');
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
               context.go('/email-verification');
@@ -65,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           });
         } else if (state.status == AuthStatus.authenticated) {
           // If somehow user gets authenticated directly, go to home
-          print('RegisterScreen: User authenticated, navigating to home');
+          debugPrint('RegisterScreen: User authenticated, navigating to home');
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
               context.go('/');
@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           });
         } else if (state.status == AuthStatus.error) {
           // Show error message
-          print('RegisterScreen: Error occurred - ${state.errorMessage}');
+          debugPrint('RegisterScreen: Error occurred - ${state.errorMessage}');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage ?? 'Registration failed'),

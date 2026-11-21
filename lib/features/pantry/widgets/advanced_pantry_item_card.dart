@@ -47,10 +47,10 @@ class AdvancedPantryItemCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: _getCategoryColor(item.category).withOpacity(0.1),
+                      color: _getCategoryColor(item.category).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(AppSizes.radiusS),
                       border: Border.all(
-                        color: _getCategoryColor(item.category).withOpacity(0.3),
+                        color: _getCategoryColor(item.category).withValues(alpha: 0.3),
                       ),
                     ),
                     child: Text(
@@ -150,7 +150,7 @@ class AdvancedPantryItemCard extends StatelessWidget {
           _buildDetailChip(
             icon: _getStorageIcon(item.storageLocation!),
             label: item.storageLocation!,
-            color: AppColors.primary.withOpacity(0.7),
+            color: AppColors.primary.withValues(alpha: 0.7),
           ),
         
         // Price
@@ -201,9 +201,9 @@ class AdvancedPantryItemCard extends StatelessWidget {
         horizontal: AppSizes.paddingS,
         vertical: 4,
       ),      decoration: BoxDecoration(
-        color: Colors.orange.withOpacity(0.1),
+        color: Colors.orange.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.radiusS),
-        border: Border.all(color: Colors.orange.withOpacity(0.3)),
+        border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -235,9 +235,9 @@ class AdvancedPantryItemCard extends StatelessWidget {
         vertical: 4,
       ),
       decoration: BoxDecoration(
-        color: AppColors.error.withOpacity(0.1),
+        color: AppColors.error.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.radiusS),
-        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

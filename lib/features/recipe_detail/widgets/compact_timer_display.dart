@@ -8,12 +8,12 @@ class CompactTimerDisplay extends StatefulWidget {
   final VoidCallback? onComplete;
 
   const CompactTimerDisplay({
-    Key? key,
+    super.key,
     this.durationMinutes,
     required this.stepDescription,
     this.autoStart = false,
     this.onComplete,
-  }) : super(key: key);
+  });
 
   @override
   State<CompactTimerDisplay> createState() => _CompactTimerDisplayState();
@@ -107,12 +107,12 @@ class _CompactTimerDisplayState extends State<CompactTimerDisplay>
     if (minutes == null || minutes <= 0) return '';
     
     if (minutes < 60) {
-      return '${minutes} menit';
+      return '$minutes menit';
     } else {
       int hours = minutes ~/ 60;
       int remainingMinutes = minutes % 60;
       if (remainingMinutes == 0) {
-        return '${hours} jam';
+        return '$hours jam';
       } else {
         return '${hours}j ${remainingMinutes}m';
       }
@@ -132,10 +132,10 @@ class _CompactTimerDisplayState extends State<CompactTimerDisplay>
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
+          color: Colors.grey.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -166,13 +166,13 @@ class _CompactTimerDisplayState extends State<CompactTimerDisplay>
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            _timerColor.withOpacity(0.1),
-            _timerColor.withOpacity(0.05),
+            _timerColor.withValues(alpha: 0.1),
+            _timerColor.withValues(alpha: 0.05),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: _timerColor.withOpacity(0.3),
+          color: _timerColor.withValues(alpha: 0.3),
           width: 1,
         ),
       ),
@@ -261,7 +261,7 @@ class _CompactTimerDisplayState extends State<CompactTimerDisplay>
           if (_isRunning && _totalSeconds > 0)
             LinearProgressIndicator(
               value: (_totalSeconds - _remainingSeconds) / _totalSeconds,
-              backgroundColor: _timerColor.withOpacity(0.2),
+              backgroundColor: _timerColor.withValues(alpha: 0.2),
               valueColor: AlwaysStoppedAnimation(_timerColor),
               minHeight: 4,
             ),

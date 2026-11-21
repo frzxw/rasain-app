@@ -113,7 +113,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: AppColors.border.withOpacity(0.3),
+            color: AppColors.border.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -123,7 +123,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
           Container(
             padding: const EdgeInsets.all(AppSizes.paddingS),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.radiusM),
             ),
             child: Icon(Icons.tune, color: AppColors.primary, size: 24),
@@ -170,9 +170,9 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: AppColors.primary,
-              inactiveTrackColor: AppColors.primary.withOpacity(0.2),
+              inactiveTrackColor: AppColors.primary.withValues(alpha: 0.2),
               thumbColor: AppColors.primary,
-              overlayColor: AppColors.primary.withOpacity(0.2),
+              overlayColor: AppColors.primary.withValues(alpha: 0.2),
               valueIndicatorColor: AppColors.primary,
               valueIndicatorTextStyle: const TextStyle(
                 color: Colors.white,
@@ -217,9 +217,9 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: AppColors.success,
-              inactiveTrackColor: AppColors.success.withOpacity(0.2),
+              inactiveTrackColor: AppColors.success.withValues(alpha: 0.2),
               thumbColor: AppColors.success,
-              overlayColor: AppColors.success.withOpacity(0.2),
+              overlayColor: AppColors.success.withValues(alpha: 0.2),
               valueIndicatorColor: AppColors.success,
               valueIndicatorTextStyle: const TextStyle(
                 color: Colors.white,
@@ -285,10 +285,10 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSizes.radiusL),
-        border: Border.all(color: AppColors.border.withOpacity(0.3), width: 1),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.3), width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -302,7 +302,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
               Container(
                 padding: const EdgeInsets.all(AppSizes.paddingS),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(AppSizes.radiusS),
                 ),
                 child: Icon(icon, color: AppColors.primary, size: 20),
@@ -414,7 +414,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
           color: isSelected ? color : Colors.transparent,
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
           border: Border.all(
-            color: isSelected ? color : color.withOpacity(0.3),
+            color: isSelected ? color : color.withValues(alpha: 0.3),
             width: 1,
           ),
         ),
@@ -449,7 +449,7 @@ class _FilterRecipeWidgetState extends State<FilterRecipeWidget>
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          top: BorderSide(color: AppColors.border.withOpacity(0.3), width: 1),
+          top: BorderSide(color: AppColors.border.withValues(alpha: 0.3), width: 1),
         ),
       ),
       child: Row(

@@ -9,12 +9,12 @@ class CookingTimer extends StatefulWidget {
   final bool autoStart;
 
   const CookingTimer({
-    Key? key,
+    super.key,
     required this.durationMinutes,
     required this.stepDescription,
     this.onTimerComplete,
     this.autoStart = false,
-  }) : super(key: key);
+  });
 
   @override
   State<CookingTimer> createState() => _CookingTimerState();
@@ -193,7 +193,7 @@ class _CookingTimerState extends State<CookingTimer>
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -268,18 +268,18 @@ class _CookingTimerState extends State<CookingTimer>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            _timerColor.withOpacity(0.1),
-            _timerColor.withOpacity(0.05),
+            _timerColor.withValues(alpha: 0.1),
+            _timerColor.withValues(alpha: 0.05),
           ],
         ),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: _timerColor.withOpacity(0.3),
+          color: _timerColor.withValues(alpha: 0.3),
           width: 2,
         ),
         boxShadow: [
           BoxShadow(
-            color: _timerColor.withOpacity(0.2),
+            color: _timerColor.withValues(alpha: 0.2),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -291,7 +291,7 @@ class _CookingTimerState extends State<CookingTimer>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -334,7 +334,7 @@ class _CookingTimerState extends State<CookingTimer>
                 scale: _scaleAnimation.value,
                 child: Transform.scale(
                   scale: _isRunning ? _pulseAnimation.value : 1.0,
-                  child: Container(
+                  child: SizedBox(
                     width: 200,
                     height: 200,
                     child: Stack(
@@ -349,7 +349,7 @@ class _CookingTimerState extends State<CookingTimer>
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                color: _timerColor.withOpacity(0.3),
+                                color: _timerColor.withValues(alpha: 0.3),
                                 blurRadius: 20,
                                 spreadRadius: 5,
                               ),
@@ -366,7 +366,7 @@ class _CookingTimerState extends State<CookingTimer>
                             child: CircularProgressIndicator(
                               value: _progress,
                               strokeWidth: 8,
-                              backgroundColor: _timerColor.withOpacity(0.2),
+                              backgroundColor: _timerColor.withValues(alpha: 0.2),
                               valueColor: AlwaysStoppedAnimation(_timerColor),
                             ),
                           ),
@@ -394,7 +394,7 @@ class _CookingTimerState extends State<CookingTimer>
                                       : 'Siap dimulai',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: _timerColor.withOpacity(0.7),
+                                color: _timerColor.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -428,10 +428,10 @@ class _CookingTimerState extends State<CookingTimer>
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: _timerColor.withOpacity(0.2),
+                color: _timerColor.withValues(alpha: 0.2),
               ),
             ),
             child: Text(
@@ -457,7 +457,7 @@ class _CookingTimerState extends State<CookingTimer>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -478,7 +478,7 @@ class _CookingTimerState extends State<CookingTimer>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: _timerColor.withOpacity(0.4),
+                      color: _timerColor.withValues(alpha: 0.4),
                       blurRadius: 12,
                       offset: const Offset(0, 6),
                     ),
@@ -501,7 +501,7 @@ class _CookingTimerState extends State<CookingTimer>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),

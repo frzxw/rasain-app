@@ -41,7 +41,7 @@ These are from the web demo (`--dart-define=DEMO_MODE=true`).
 | --- | --- |
 | ![Home](docs/screenshots/home.png) | ![Nasi Goreng Kampung](docs/screenshots/recipe.png) |
 
-| Recipe | Pantry | Community |
+| Recipe | Pantry |
 | --- | --- | --- |
 | ![Pantry](docs/screenshots/pantry.png) | ![Community](docs/screenshots/community.png) |
 

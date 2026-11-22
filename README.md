@@ -39,11 +39,11 @@ These are from the web demo (`--dart-define=DEMO_MODE=true`).
 
 | Welcome | Home |
 | --- | --- |
-| ![Welcome](docs/screenshots/welcome.png) | ![Home](docs/screenshots/home.png) |
+| ![Home](docs/screenshots/home.png) | ![Nasi Goreng Kampung](docs/screenshots/recipe.png) |
 
 | Recipe | Pantry | Community |
 | --- | --- | --- |
-| ![Nasi Goreng Kampung](docs/screenshots/recipe.png) | ![Pantry](docs/screenshots/pantry.png) | ![Community](docs/screenshots/community.png) |
+| ![Pantry](docs/screenshots/pantry.png) | ![Community](docs/screenshots/community.png) |
 
 ## Run it locally
 

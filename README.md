@@ -37,12 +37,12 @@ Fariz owns the repository. He made the first commit, wired Supabase and `.env`, 
 
 These are from the web demo (`--dart-define=DEMO_MODE=true`).
 
-| Welcome | Home |
+| Home | Menu |
 | --- | --- |
 | ![Home](docs/screenshots/home.png) | ![Nasi Goreng Kampung](docs/screenshots/recipe.png) |
 
-| Recipe | Pantry |
-| --- | --- | --- |
+| Pantry | Community |
+| --- | --- |
 | ![Pantry](docs/screenshots/pantry.png) | ![Community](docs/screenshots/community.png) |
 
 ## Run it locally

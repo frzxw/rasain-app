@@ -73,3 +73,4 @@ coverage/
 # VS Code settings (optional)
 .vscode/settings.json
 .vscode/launch.json
+.vscode/
